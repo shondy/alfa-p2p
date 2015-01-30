@@ -36,29 +36,6 @@
 
 |===
 
-[[overview-http-status-codes]]
-== Коды состояний HTTP
-
-|===
-| Код состояния | Описание
-
-| `200 OK`
-| The request completed successfully
-
-| `201 Created`
-| A new resource has been created successfully. The resource's URI is available from the response's
-`Location` header
-
-| `204 No Content`
-| An update to an existing resource has been applied successfully
-
-| `400 Bad Request`
-| The request was malformed. The response body will include an error providing further information
-
-| `404 Not Found`
-| The requested resource did not exist
-|===
-
 [[Errors]]
 == Ошибки
 
@@ -72,16 +49,16 @@ that describes the problem. The error object has the following fields:
 | `Not Found`
 
 | message
-| Карта не найдена
+| 'Карта не найдена'
 
 | path
-| /card/{id_1}
+| '/card/{id_1}'
 
 | status
 | `404`
 
 | timestamp
-| ...
+| '...'
 |===
 
 For example, a request that attempts to apply a non-existent tag to a note will produce a
