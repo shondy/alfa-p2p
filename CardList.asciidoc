@@ -10,7 +10,7 @@
 [[Overview]]
 Сервис предназначен для работы над ресурсом Карты
 
-[[overview-http-verbs]
+[[overview-http-verbs]]
 == Список методов
 
 |===
