@@ -1,0 +1,144 @@
+= REST CardList
+
+:doctype: book
+:toc:
+:sectanchors:
+:sectlinks:
+:toclevels: 4
+:source-highlighter: highlightjs
+
+[[Overview]]
+Сервис предназначен для работы над ресурсом Карты
+
+[[overview-http-verbs]
+== Список методов
+
+|===
+| Метод | Описание
+
+| `GET /card/{id_1}`
+| Получить список параметров карты №1
+
+| `POST /card/{id_1}`
+| Сохрнаить карту...
+
+| `PATCH /card/{id_1}`
+| Изменить параметры по карте №1
+
+| `DELETE /card/{id_1}`
+| Удалить карту№1
+
+| `GET /card/{id_1}/closedate`
+| Получить дату окончания действия карты №1
+
+| `///`
+| ...
+
+|===
+
+[[overview-http-status-codes]]
+== Коды состояний HTTP
+
+|===
+| Код состояния | Описание
+
+| `200 OK`
+| The request completed successfully
+
+| `201 Created`
+| A new resource has been created successfully. The resource's URI is available from the response's
+`Location` header
+
+| `204 No Content`
+| An update to an existing resource has been applied successfully
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing further information
+
+| `404 Not Found`
+| The requested resource did not exist
+|===
+
+[[Errors]]
+== Ошибки
+
+Whenever an error response (status code >= 400) is returned, the body will contain a JSON object
+that describes the problem. The error object has the following fields:
+
+|===
+| Поле | писание
+
+| error
+| `Not Found`
+
+| message
+| Карта не найдена
+
+| path
+| /card/{id_1}
+
+| status
+| `404`
+
+| timestamp
+| ...
+|===
+
+For example, a request that attempts to apply a non-existent tag to a note will produce a
+`400 Bad Request` response:
+
+include::{generated}/error-example/response.asciidoc[]
+
+[[overview-hypermedia]]
+== Hypermedia
+
+RESTful Notes uses hypermedia and resources include links to other resources in their
+responses. Responses are in http://stateless.co/hal_specification.html[Hypertext Application
+Language (HAL)] format. Links can be found benath the `_links` key. Users of the API should
+not created URIs themselves, instead they should use the above-described links to navigate
+from resource to resource.
+
+[[resources-card]]
+== Карты
+
+[[resources-card-access]]
+=== Метод GET
+
+==== Пример запроса
+
+|===
+| JSON path | Description
+
+| `_links`
+| <<resources-index-links,Links>> to other resources
+|===
+
+==== Пример ответа
+
+include::{generated}/index-example/response.asciidoc[]
+
+[[resources-card-create]]
+=== Метод POST
+
+====Структура запроса
+
+|===
+| JSON path | Description
+
+| `title`
+| The title of the note
+
+| `body`
+| The body of the note
+
+| `tags`
+| | The tags of the note as an array of URIs
+|===
+
+==== Пример запроса
+
+include::{generated}/notes-create-example/request.asciidoc[]
+
+==== Пример ответа
+
+include::{generated}/notes-create-example/response.asciidoc[]
