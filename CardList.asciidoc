@@ -1,4 +1,4 @@
-= REST CardList
+= REST Cards
 
 :doctype: book
 :toc:
@@ -10,33 +10,60 @@
 [[Overview]]
 Сервис предназначен для работы с объектом Карты.
 
-Пример объекта:
+*Параметры объекта*
+[horizontal]
+humanId:: "12345",
+cardId:: "1",
+cardColor:: "#000002",
+cardName:: null,
+isSending:: "Y",
+isReception:: "Y",
+cardVerification:: "S",
+isDeletedDebit:: "N",
+isActive:: "Y",
+isAlfabank:: "N",
+cardNumber:: "5154 **** 4025",
+expirationDate:: "07/15",
+isDeletedCredit:: "N",
+lastTransactionDateForSender:: "2015-12-15",
+lastTransactionDateForRecipient:: "2015-01-15",
+paymentSystem:: "MC",
+accountBalance:: "15250.50",
+accountCurrency:: "USD",
+accountCurrenceName:: "Доллар США",
+bankId:: "12345679",
+bankNameLatin:: "Sberbank",
+bankNameCyrillic:: "Сбербанк",
+countryCode:: "12",
+bankColor:: "#000008",
+
+*Пример объекта*
 ----
 {
-  "humanId":""12345,
-  "cardId":"1",
-  "cardColor":"#000002",
-  "cardName":"",
-  "isSending":"Y",
-  "isReception":"Y",
-  "cardVerification":"S",
-  "isDeletedDebit":"N",
-  "isActive":"Y",
-  "isAlfabank":"N",
-  "cardNumber":"5154 **** 4025",
-  "expirationDate":"07/15",
-  "isDeletedCredit":"N",
-  "lastTransactionDateForSender":"2015-12-15",
-  "lastTransactionDateForRecipient":"2015-01-15",
-  "paymentSystem":"MC",
-  "accountBalance":"15250.50",
-  "accountCurrency":"USD",
-  "accountCurrenceName":"Доллар США",
-  "bankId":"12345679",
-  "bankNameLatin":"Sberbank",
-  "bankNameCyrillic":"Сбербанк",
-  "countryCode":"12",
-  "bankColor":"#000008",
+  "humanId": "12345",
+  "cardId": "1",
+  "cardColor": "#000002",
+  "cardName": null,
+  "isSending": "Y",
+  "isReception": "Y",
+  "cardVerification": "S",
+  "isDeletedDebit": "N",
+  "isActive": "Y",
+  "isAlfabank": "N",
+  "cardNumber": "5154 **** 4025",
+  "expirationDate": "07/15",
+  "isDeletedCredit": "N",
+  "lastTransactionDateForSender": "2015-12-15",
+  "lastTransactionDateForRecipient": "2015-01-15",
+  "paymentSystem": "MC",
+  "accountBalance": "15250.50",
+  "accountCurrency": "USD",
+  "accountCurrenceName": "Доллар США",
+  "bankId": "12345679",
+  "bankNameLatin": "Sberbank",
+  "bankNameCyrillic": "Сбербанк",
+  "countryCode": "12",
+  "bankColor": "#000008",
 }
 ----
 
@@ -64,7 +91,7 @@
 [[Errors]]
 == Ошибки
 
- хз
+пока хз
  
 |===
 | Поле | писание
