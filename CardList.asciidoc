@@ -19,13 +19,10 @@
 | `GET /cards`
 | Получение списка карт клиента с параметрами
 
-| `GET /cards/{id}`
-| Получение параметров заданной карты
-
 | `PUT /cards`
 | Сохранение новой карты в системе
 
-| `PATCH /card/{id}`
+| `POST /cards/{id}`
 | Редактирование параметров карты в системе
 
 
@@ -34,11 +31,13 @@
 [[Errors]]
 == Ошибки
 
+ хз
+ 
 |===
 | Поле | писание
 
 | error
-| `Not Found`
+| ``
 
 | message
 | ''
@@ -60,22 +59,22 @@
 [[resources-card-access]]
 === Метод GET
 
+* Получение списка карт в поле отправителя платежа
 ==== Пример запроса
 
-get /cards
+get /cards/?cus=AQHFFT&deleted=N&dir=
 
 ==== Примеры ответа
 
-* Получение списка карт в поле отправителя платежа
-[source, java]
+
 ----
 {
   "type":"List",
   "value":[
     {
     "cardId":"0",
-    "paySys":"VISA",
-    "name":"name1",
+    "paySys":"VI",
+    "name":"",
     "debit":true,
     "credit":false,
     "verificationMethod":"3DS",
@@ -84,10 +83,9 @@ get /cards
     "isAlfaCard":true,
     "number":"4154 82** **** **40 25",
     "expirationDate":"07/15"
-    "bank":{
-      "logo":"logo1",
-      "color":"blue"
-      }
+    "balance":"15000.15",
+    "bankId":"AlfaBank"
+    "bankColor":"#000001",
     },
     {
     "cardId":"1",
@@ -111,6 +109,13 @@ get /cards
 ----
 
 * Получение списка карт в поле получателя перевода
+
+==== Пример запроса
+
+get /cards/?credit=true
+
+==== Примеры ответа
+
 ----
 {
   "type":"List",
@@ -137,27 +142,17 @@ get /cards
 ----
 
 [[resources-card-create]]
-=== Метод POST
-
-====Структура запроса
-
-|===
-| JSON path | Description
-
-| `title`
-| The title of the note
-
-| `body`
-| The body of the note
-
-| `tags`
-| | The tags of the note as an array of URIs
-|===
+=== Метод PUT
 
 ==== Пример запроса
 
-include::{generated}/notes-create-example/request.asciidoc[]
+PUT /cards/?cus=AHQFFT
 
 ==== Пример ответа
 
-include::{generated}/notes-create-example/response.asciidoc[]
+[[resources-card-update]]
+=== Метод POST
+
+* Сохранение даты последнего перевода
+
+* Сохранение названия карты
