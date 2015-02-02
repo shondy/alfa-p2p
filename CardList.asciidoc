@@ -19,10 +19,10 @@
 | `GET /cards`
 | Получение списка карт клиента с параметрами
 
-| `PUT /cards`
+| `POST /cards`
 | Сохранение новой карты в системе
 
-| `POST /cards/{id}`
+| `PUT /cards/{id}`
 | Редактирование параметров карты в системе
 
 
@@ -59,11 +59,11 @@
 [[resources-card-access]]
 === Метод GET
 
-* Получение списка карт в поле отправителя платежа
+* Получение списка карт в поле отправителя перевода
 
 ==== Пример запроса
 
-get /cards/?cus=AQHFFT&cardVerification=S&isDeleted=N&mode=A&direction=SND
+*GET* /cards?cus=AQHFFT&cardVerification=S&isDeleted=N&mode=A&direction=SND
 
 ==== Примеры ответа
 
@@ -72,60 +72,30 @@ get /cards/?cus=AQHFFT&cardVerification=S&isDeleted=N&mode=A&direction=SND
   "type":"List",
   "value":[
     {
-    "humanId":"12345",
+    "humanId":""12345,
     "cardId":"0",
     "cardColor":"#000001",
     "cardName":"Вася Пупкин",
     "isSending":"Y",
     "isReception":"N",
     "cardVerification":"S",
-    isDefaultDebit
-    isDeletedDebit
-    isActive
+    "isDeletedDebit":"N",
+    "isActive":"Y",
     "isAlfabank":"Y",
-    "cardNumber":"4154 **** 4025",
+    "cardNumber":"5154 **** 4025",
     "expirationDate":"07/15",
-    applicationId
-    isDefaultCredit
-    isDeletedCredit
-    "lastTransactionDateForSender":"",
-    "lastTransactionDateForRecipient":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "":"",
-    "paySys":"VI",
-    "name":"",
-    "debit":true,
-    "credit":false,
-    "verificationMethod":"3DS",
-    "isActive":true,
-    "isDefault":true,
-    "isAlfaCard":true,
-    "number":"4154 82** **** **40 25",
-    "expirationDate":"07/15"
-    "balance":"15000.15",
-    "bankId":"AlfaBank"
-    "bankColor":"#000001",
-    },
-    {
-    "cardId":"1",
-    "paySys":"MC",
-    "name":"name2",
-    "debit":true,
-    "credit":false,
-    "verificationMethod":"3DS",
-    "isActive":true,
-    "isDefault":false,
-    "isAlfaCard":false,
-    "number":"5154 82** **** **40 25",
-    "expirationDate":"07/15"
-    "bank":{
-      "logo":"logo2",
-      "color":"green"
-      }
+    "isDeletedCredit":"N",
+    "lastTransactionDateForSender":"2015-12-15",
+    "lastTransactionDateForRecipient":"2015-01-15",
+    "paymentSystem":"MC",
+    "accountBalance":"15250.50",
+    "accountCurrency":"RUR",
+    "accountCurrenceName":"Рубли",
+    "bankId":"12345678",
+    "bankNameLatin":"Alfabank",
+    "bankNameCyrillic":"Альфа-Банк",
+    "countryCode":"12",
+    "bankColor":"#000009",
     }
   ]
 }
@@ -135,7 +105,7 @@ get /cards/?cus=AQHFFT&cardVerification=S&isDeleted=N&mode=A&direction=SND
 
 ==== Пример запроса
 
-get /cards/?credit=true
+*GET* /cards?cus=AQHFFT&cardVerification=S&isDeleted=N&mode=A&direction=RCP
 
 ==== Примеры ответа
 
@@ -144,34 +114,111 @@ get /cards/?credit=true
   "type":"List",
   "value":[
     {
-    "cardId":"3",
-    "paySys":"VISA",
-    "name":"name3",
-    "debit":false,
-    "credit":true",
-    "verificationMethod":"3DS",
-    "isActive":true,
-    "isDefault":true,
-    "isAlfaCard":true,
-    "number":"4154 82** **** **40 25",
-    "expirationDate":"07/15"
-    "bank":{
-      "logo":"logo1",
-      "color":"blue"
-      }
+    "humanId":""12345,
+    "cardId":"1",
+    "cardColor":"#000002",
+    "cardName":"",
+    "isSending":"Y",
+    "isReception":"Y",
+    "cardVerification":"S",
+    "isDeletedDebit":"N",
+    "isActive":"Y",
+    "isAlfabank":"N",
+    "cardNumber":"5154 **** 4025",
+    "expirationDate":"07/15",
+    "isDeletedCredit":"N",
+    "lastTransactionDateForSender":"2015-12-15",
+    "lastTransactionDateForRecipient":"2015-01-15",
+    "paymentSystem":"MC",
+    "accountBalance":"15250.50",
+    "accountCurrency":"USD",
+    "accountCurrenceName":"Доллар США",
+    "bankId":"12345679",
+    "bankNameLatin":"Sberbank",
+    "bankNameCyrillic":"Сбербанк",
+    "countryCode":"12",
+    "bankColor":"#000008",
     }
   ]
+}
+----
+
+* Получение параметров заданной карты
+
+==== Пример запроса
+
+*GET* /cards?id=1
+
+==== Примеры ответа
+
+----
+{
+  "humanId":""12345,
+  "cardId":"1",
+  "cardColor":"#000002",
+  "cardName":"",
+  "isSending":"Y",
+  "isReception":"Y",
+  "cardVerification":"S",
+  "isDeletedDebit":"N",
+  "isActive":"Y",
+  "isAlfabank":"N",
+  "cardNumber":"5154 **** 4025",
+  "expirationDate":"07/15",
+  "isDeletedCredit":"N",
+  "lastTransactionDateForSender":"2015-12-15",
+  "lastTransactionDateForRecipient":"2015-01-15",
+  "paymentSystem":"MC",
+  "accountBalance":"15250.50",
+  "accountCurrency":"USD",
+  "accountCurrenceName":"Доллар США",
+  "bankId":"12345679",
+  "bankNameLatin":"Sberbank",
+  "bankNameCyrillic":"Сбербанк",
+  "countryCode":"12",
+  "bankColor":"#000008",
 }
 ----
 
 [[resources-card-create]]
 === Метод PUT
 
+* Сохранение новой карты после совершения перевода
+
 ==== Пример запроса
 
-PUT /cards/?cus=AHQFFT
+*PUT* /cards/?id=1
 
-==== Пример ответа
+==== Примеры ответа
+
+----
+{
+  "humanId":""12345,
+  "cardId":"1",
+  "cardColor":"#000002",
+  "cardName":"",
+  "isSending":"Y",
+  "isReception":"Y",
+  "cardVerification":"S",
+  "isDeletedDebit":"N",
+  "isActive":"Y",
+  "isAlfabank":"N",
+  "cardNumber":"5154 **** 4025",
+  "expirationDate":"07/15",
+  "isDeletedCredit":"N",
+  "lastTransactionDateForSender":"2015-12-15",
+  "lastTransactionDateForRecipient":"2015-01-15",
+  "paymentSystem":"MC",
+  "accountBalance":"15250.50",
+  "accountCurrency":"USD",
+  "accountCurrenceName":"Доллар США",
+  "bankId":"12345679",
+  "bankNameLatin":"Sberbank",
+  "bankNameCyrillic":"Сбербанк",
+  "countryCode":"12",
+  "bankColor":"#000008",
+}
+----
 
 [[resources-card-update]]
 === Метод POST
