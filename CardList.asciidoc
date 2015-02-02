@@ -60,19 +60,42 @@
 === Метод GET
 
 * Получение списка карт в поле отправителя платежа
+
 ==== Пример запроса
 
-get /cards/?cus=AQHFFT&deleted=N&dir=
+get /cards/?cus=AQHFFT&cardVerification=S&isDeleted=N&mode=A&direction=SND
 
 ==== Примеры ответа
-
 
 ----
 {
   "type":"List",
   "value":[
     {
+    "humanId":"12345",
     "cardId":"0",
+    "cardColor":"#000001",
+    "cardName":"Вася Пупкин",
+    "isSending":"Y",
+    "isReception":"N",
+    "cardVerification":"S",
+    isDefaultDebit
+    isDeletedDebit
+    isActive
+    "isAlfabank":"Y",
+    "cardNumber":"4154 **** 4025",
+    "expirationDate":"07/15",
+    applicationId
+    isDefaultCredit
+    isDeletedCredit
+    "lastTransactionDateForSender":"",
+    "lastTransactionDateForRecipient":"",
+    "":"",
+    "":"",
+    "":"",
+    "":"",
+    "":"",
+    "":"",
     "paySys":"VI",
     "name":"",
     "debit":true,
