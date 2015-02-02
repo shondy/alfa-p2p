@@ -11,31 +11,109 @@
 Сервис предназначен для работы с объектом Карты.
 
 *Параметры объекта*
-[horizontal]
-humanId:: "12345",
-cardId:: "1",
-cardColor:: "#000002",
-cardName:: null,
-isSending:: "Y",
-isReception:: "Y",
-cardVerification:: "S",
-isDeletedDebit:: "N",
-isActive:: "Y",
-isAlfabank:: "N",
-cardNumber:: "5154 **** 4025",
-expirationDate:: "07/15",
-isDeletedCredit:: "N",
-lastTransactionDateForSender:: "2015-12-15",
-lastTransactionDateForRecipient:: "2015-01-15",
-paymentSystem:: "MC",
-accountBalance:: "15250.50",
-accountCurrency:: "USD",
-accountCurrenceName:: "Доллар США",
-bankId:: "12345679",
-bankNameLatin:: "Sberbank",
-bankNameCyrillic:: "Сбербанк",
-countryCode:: "12",
-bankColor:: "#000008",
+|===
+| Параметр | Тип | Описание
+
+| humanId
+| String
+| Human ID
+
+| cardId
+| String
+| Card ID
+
+| cardColor
+| String
+| Card color
+
+| cardName
+| String
+| Card name
+
+| isSending
+| String
+| Is sending card? (Y/N)
+
+| isReception
+| String
+| Is reception card? (Y/N)
+
+| cardVerification 
+| String
+| Card's verification ('S' - 3DS,'H' - hold,'N' - not verify)
+
+| isDeletedDebit
+| String
+| Is deleted debit card? (Y/N)
+
+| isActive
+| String
+| Is active card? (Y/N)
+
+| isAlfabank
+| String
+| Is AlfaBank card and none of the merchants? (Y/N)
+
+| cardNumber
+| String
+| Card number
+
+| expirationYear
+| Integer
+| Card expriration year
+
+| expirationMonth
+| Integer
+| Card expriration month
+
+| isDeletedCredit
+| String
+| Is deleted credit card? (Y/N)
+
+| lastTransactionDateForSender
+| Date
+| Last transaction date for sender card
+
+| lastTransactionDateForRecipient
+| Date
+| Last transaction date for recipient card
+
+| paymentSystem
+| String
+| Payment system
+
+| accountBalance
+| Integer
+| Account balance
+
+| accountCurrency
+| String
+| Account currency 
+
+| accountCurrenceName
+| String
+| Account currency name
+
+| bankId
+| String
+| Bank ID
+
+| bankNameLatin 
+| String
+| Latin name of bank
+
+| bankNameCyrillic 
+| String
+| Cyrillic name of bank
+
+| countryCode
+| String
+| Country code
+
+| bankColor
+| String
+| Bank color
+
 
 *Пример объекта*
 ----
