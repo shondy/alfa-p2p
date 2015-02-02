@@ -8,7 +8,37 @@
 :source-highlighter: highlightjs
 
 [[Overview]]
-Сервис предназначен для работы с объектом Карты
+Сервис предназначен для работы с объектом Карты.
+
+Пример объекта:
+----
+{
+  "humanId":""12345,
+  "cardId":"1",
+  "cardColor":"#000002",
+  "cardName":"",
+  "isSending":"Y",
+  "isReception":"Y",
+  "cardVerification":"S",
+  "isDeletedDebit":"N",
+  "isActive":"Y",
+  "isAlfabank":"N",
+  "cardNumber":"5154 **** 4025",
+  "expirationDate":"07/15",
+  "isDeletedCredit":"N",
+  "lastTransactionDateForSender":"2015-12-15",
+  "lastTransactionDateForRecipient":"2015-01-15",
+  "paymentSystem":"MC",
+  "accountBalance":"15250.50",
+  "accountCurrency":"USD",
+  "accountCurrenceName":"Доллар США",
+  "bankId":"12345679",
+  "bankNameLatin":"Sberbank",
+  "bankNameCyrillic":"Сбербанк",
+  "countryCode":"12",
+  "bankColor":"#000008",
+}
+----
 
 [[overview-http-verbs]]
 == Список методов
@@ -19,10 +49,13 @@
 | `GET /cards`
 | Получение списка карт клиента с параметрами
 
+| `GET /cards/123`
+| Получение параметров заданной карты
+
 | `POST /cards`
 | Сохранение новой карты в системе
 
-| `PUT /cards/{id}`
+| `PATCH /cards/123`
 | Редактирование параметров карты в системе
 
 
@@ -37,7 +70,7 @@
 | Поле | писание
 
 | error
-| ``
+| ''
 
 | message
 | ''
@@ -46,10 +79,10 @@
 | ''
 
 | status
-| ``
+| ''
 
 | timestamp
-| '...'
+| ''
 |===
 
 
@@ -69,36 +102,62 @@
 
 ----
 {
-  "type":"List",
-  "value":[
-    {
-    "humanId":""12345,
-    "cardId":"0",
-    "cardColor":"#000001",
-    "cardName":"Вася Пупкин",
-    "isSending":"Y",
-    "isReception":"N",
-    "cardVerification":"S",
-    "isDeletedDebit":"N",
-    "isActive":"Y",
-    "isAlfabank":"Y",
-    "cardNumber":"5154 **** 4025",
-    "expirationDate":"07/15",
-    "isDeletedCredit":"N",
-    "lastTransactionDateForSender":"2015-12-15",
-    "lastTransactionDateForRecipient":"2015-01-15",
-    "paymentSystem":"MC",
-    "accountBalance":"15250.50",
-    "accountCurrency":"RUR",
-    "accountCurrenceName":"Рубли",
-    "bankId":"12345678",
-    "bankNameLatin":"Alfabank",
-    "bankNameCyrillic":"Альфа-Банк",
-    "countryCode":"12",
-    "bankColor":"#000009",
-    }
-  ]
 }
+
+[
+  {
+  "humanId": "12345",
+  "cardId": "0",
+  "cardColor": "#000001",
+  "cardName": "Вася Пупкин",
+  "isSending": "Y",
+  "isReception": "N",
+  "cardVerification": "S",
+  "isDeletedDebit": "N",
+  "isActive": "Y",
+  "isAlfabank": "Y",
+  "cardNumber": "5154 **** 4025",
+  "expirationDate": "07/15",
+  "isDeletedCredit": "N",
+  "lastTransactionDateForSender": "2015-12-15",
+  "lastTransactionDateForRecipient": "2015-01-15",
+  "paymentSystem": "MC",
+  "accountBalance": "15250.50",
+  "accountCurrency": "RUR",
+  "accountCurrenceName": "Рубли",
+  "bankId": "12345678",
+  "bankNameLatin": "Alfabank",
+  "bankNameCyrillic": "Альфа-Банк",
+  "countryCode": "12",
+  "bankColor": "#000009",
+  },
+  {
+  "humanId": "12345",
+  "cardId": "1",
+  "cardColor": "#000002",
+  "cardName": "Вася Пупкин 2",
+  "isSending": "Y",
+  "isReception": "Y",
+  "cardVerification": "S",
+  "isDeletedDebit": "N",
+  "isActive": "Y",
+  "isAlfabank": "Y",
+  "cardNumber": "5154 **** 4025",
+  "expirationDate": "07/15",
+  "isDeletedCredit": "N",
+  "lastTransactionDateForSender": "2015-12-15",
+  "lastTransactionDateForRecipient": "2015-01-15",
+  "paymentSystem": "MC",
+  "accountBalance": "15250.50",
+  "accountCurrency": "RUR",
+  "accountCurrenceName": "Рубли",
+  "bankId": "12345678",
+  "bankNameLatin": "Alfabank",
+  "bankNameCyrillic": "Альфа-Банк",
+  "countryCode": "12",
+  "bankColor": "#000009",
+  }
+]
 ----
 
 * Получение списка карт в поле получателя перевода
