@@ -64,7 +64,9 @@
 
 get /cards
 
-==== Пример ответа
+==== Примеры ответа
+
+* Получение списка карт в поле отправителя платежа
 [source, java]
 ----
 {
@@ -73,8 +75,9 @@ get /cards
     {
     "cardId":"0",
     "paySys":"VISA",
-    "color":"#000001",
-    "name":"name",
+    "name":"name1",
+    "debit":true,
+    "credit":false,
     "verificationMethod":"3DS",
     "isActive":true,
     "isDefault":true,
@@ -82,11 +85,52 @@ get /cards
     "number":"4154 82** **** **40 25",
     "expirationDate":"07/15"
     "bank":{
-      "logo":"???",
+      "logo":"logo1",
       "color":"blue"
       }
     },
     {
+    "cardId":"1",
+    "paySys":"MC",
+    "name":"name2",
+    "debit":true,
+    "credit":false,
+    "verificationMethod":"3DS",
+    "isActive":true,
+    "isDefault":false,
+    "isAlfaCard":false,
+    "number":"5154 82** **** **40 25",
+    "expirationDate":"07/15"
+    "bank":{
+      "logo":"logo2",
+      "color":"green"
+      }
+    }
+  ]
+}
+----
+
+* Получение списка карт в поле получателя перевода
+----
+{
+  "type":"List",
+  "value":[
+    {
+    "cardId":"3",
+    "paySys":"VISA",
+    "name":"name3",
+    "debit":false,
+    "credit":true",
+    "verificationMethod":"3DS",
+    "isActive":true,
+    "isDefault":true,
+    "isAlfaCard":true,
+    "number":"4154 82** **** **40 25",
+    "expirationDate":"07/15"
+    "bank":{
+      "logo":"logo1",
+      "color":"blue"
+      }
     }
   ]
 }
