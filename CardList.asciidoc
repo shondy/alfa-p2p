@@ -8,7 +8,7 @@
 :source-highlighter: highlightjs
 
 [[Overview]]
-Сервис предназначен для работы над объектом Карты
+Сервис предназначен для работы с объектом Карты
 
 [[overview-http-verbs]]
 == Список методов
@@ -16,31 +16,23 @@
 |===
 | Метод | Описание
 
-| `GET /card/{id_1}`
-| Получить список параметров карты №1
+| `GET /cards`
+| Получение списка карт клиента с параметрами
 
-| `POST /card/{id_1}`
-| Сохрнаить карту...
+| `GET /cards/{id}`
+| Получение параметров заданной карты
 
-| `PATCH /card/{id_1}`
-| Изменить параметры по карте №1
+| `PUT /cards`
+| Сохранение новой карты в системе
 
-| `DELETE /card/{id_1}`
-| Удалить карту№1
+| `PATCH /card/{id}`
+| Редактирование параметров карты в системе
 
-| `GET /card/{id_1}/closedate`
-| Получить дату окончания действия карты №1
-
-| `///`
-| ...
 
 |===
 
 [[Errors]]
 == Ошибки
-
-Whenever an error response (status code >= 400) is returned, the body will contain a JSON object
-that describes the problem. The error object has the following fields:
 
 |===
 | Поле | писание
@@ -49,31 +41,18 @@ that describes the problem. The error object has the following fields:
 | `Not Found`
 
 | message
-| 'Карта не найдена'
+| ''
 
 | path
-| '/card/{id_1}'
+| ''
 
 | status
-| `404`
+| ``
 
 | timestamp
 | '...'
 |===
 
-For example, a request that attempts to apply a non-existent tag to a note will produce a
-`400 Bad Request` response:
-
-include::{generated}/error-example/response.asciidoc[]
-
-[[overview-hypermedia]]
-== Hypermedia
-
-RESTful Notes uses hypermedia and resources include links to other resources in their
-responses. Responses are in http://stateless.co/hal_specification.html[Hypertext Application
-Language (HAL)] format. Links can be found benath the `_links` key. Users of the API should
-not created URIs themselves, instead they should use the above-described links to navigate
-from resource to resource.
 
 [[resources-card]]
 == Карты
@@ -83,16 +62,35 @@ from resource to resource.
 
 ==== Пример запроса
 
-|===
-| JSON path | Description
-
-| `_links`
-| <<resources-index-links,Links>> to other resources
-|===
+get /cards
 
 ==== Пример ответа
-
-include::{generated}/index-example/response.asciidoc[]
+[source, java]
+----
+{
+  "type":"List",
+  "value":[
+    {
+    "cardId":"0",
+    "paySys":"VISA",
+    "color":"#000001",
+    "name":"name",
+    "verificationMethod":"3DS",
+    "isActive":true,
+    "isDefault":true,
+    "isAlfaCard":true,
+    "number":"4154 82** **** **40 25",
+    "expirationDate":"07/15"
+    "bank":{
+      "logo":"???",
+      "color":"blue"
+      }
+    },
+    {
+    }
+  ]
+}
+----
 
 [[resources-card-create]]
 === Метод POST
