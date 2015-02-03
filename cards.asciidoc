@@ -65,23 +65,23 @@
 
 3+| Объект Account
 
-| Balance
+| balance
 | Integer
 | Текущий баланс
 
 3+| Объект Currency
 
-| Code
+| code
 | String
 | Код валюты
 
-| Description
+| description
 | String
 | Название валюты
 
 3+| Объект Bank
 
-| Id
+| id
 | String
 | ID банка
 
@@ -97,7 +97,7 @@
 | String
 | Код страны
 
-| Color
+| color
 | String
 | Цвет банка
 
