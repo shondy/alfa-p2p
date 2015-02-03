@@ -55,13 +55,9 @@
 | Integer
 | Месяц окончания срока действия карты
 
-| lastTransactionDateForSender
+| lastTransaction
 | Date
-| Дата последнего перевода с карты
-
-| lastTransactionDateForRecipient
-| Date
-| Дата последнего перевода на карту
+| Дата последнего перевода
 
 | paymentSystem
 | String
@@ -89,13 +85,13 @@
 | String
 | ID банка
 
+| name 
+| String
+| Кириллическое название банка
+
 | latinName
 | String
 | Латинское название банка
-
-| сyrillicName 
-| String
-| Кириллическое название банка
 
 | countryCode
 | String
@@ -114,28 +110,27 @@
   "color": "#000002",
   "name": null,
   "direction": "sender",
-  "verification": "S",
+  "verification": "3DS",
   "active": true,
   "alfabank": false,
   "number": "5154 **** 4025",
   "expirationYear": "15",
   "expirationMonth": "07",
-  "lastTransactionDateForSender": "2015-12-15",
-  "lastTransactionDateForRecipient": "2015-01-15",
+  "lastTransaction": "2015-12-15",
   "paymentSystem": "MC",
   "account": {
     "balance": "15250.50"
-    },
-  "currency": {
-    "code": "USD",
-    "description": "Доллар США"
+    "currency": {
+      "code": "USD",
+      "description": "Доллар США"
+      }
     },
   "bank": {
     "id": "12345679",
+    "name": "Сбербанк"
     "latinName": "Sberbank",
-    "cyrillicName": "Сбербанк",
     "countryCode": "12",
-    "Color": "#000008",
+    "color": "#000008",
     }
 }
 ----
