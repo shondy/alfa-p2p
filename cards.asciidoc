@@ -31,10 +31,6 @@
 | String
 | Название карты
 
-| verification 
-| String
-| Статус верификации карты (S - 3DS, H - hold, N - not verify)
-
 | active
 | String
 | Активная карта? (true/false)
@@ -110,7 +106,6 @@
   "color": "#000002",
   "name": null,
   "direction": "sender",
-  "verification": "3DS",
   "active": true,
   "alfabank": false,
   "number": "5154 **** 4025",
@@ -119,7 +114,7 @@
   "lastTransaction": "2015-12-15",
   "paymentSystem": "MC",
   "account": {
-    "balance": "15250.50"
+    "balance": "15250.50",
     "currency": {
       "code": "USD",
       "description": "Доллар США"
@@ -130,7 +125,7 @@
     "name": "Сбербанк"
     "latinName": "Sberbank",
     "countryCode": "12",
-    "color": "#000008",
+    "color": "#000008"
     }
 }
 ----
