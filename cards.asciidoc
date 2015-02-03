@@ -180,7 +180,8 @@ include::{generated}/cards-get/response.asciidoc[]
 Когда:
   клиент кликает в поле ввода карты списания.
 Тогда:
-  выпадает список карт: карты Альфа-Банка клиента (alfabank = true) и те, с которых он ранее делал переводы (direction = sender).
+  выпадает список карт: карты Альфа-Банка клиента (alfabank = true) и 
+  те, с которых он ранее делал переводы (direction = sender).
 ....
 
 ===== Example request
@@ -199,7 +200,8 @@ include::{generated}/cards-get-sendercards/response.asciidoc[]
 Когда:
   клиент кликает в поле ввода карты зачисления.
 Тогда:
-  выпадает список карт: карты Альфа-Банка клиента (alfabank = true) и те, на которые он ранее делал переводы (direction = recipient).
+  выпадает список карт: карты Альфа-Банка клиента (alfabank = true) и 
+  те, на которые он ранее делал переводы (direction = recipient).
 ....
 ===== Example request
 
