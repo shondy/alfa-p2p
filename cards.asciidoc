@@ -71,7 +71,7 @@
 
 | Balance
 | Integer
-| Account balance
+| Остаток средств на счете
 
 3+| Объект Currency
 
