@@ -13,7 +13,7 @@
 
 === JSON schema
 
-https://github.com/mbezrukov/alfa-p2p/blob/master/cards/json%20schema[JSON schema] 
+https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema] 
 
 === Параметры объекта Cards
 |===
