@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "id": {
+      "id": "id",
+      "type": "string"
+    },
+    "color": {
+      "id": "color",
+      "type": "string"
+    },
+    "name": {
+      "id": "name",
+      "type": "string"
+    },
+    "direction": {
+      "id": "direction",
+      "type": "string"
+    },
+    "active": {
+      "id": "active",
+      "type": "boolean"
+    },
+    "alfabank": {
+      "id": "alfabank",
+      "type": "boolean"
+    },
+    "number": {
+      "id": "number",
+      "type": "string"
+    },
+    "expirationYear": {
+      "id": "expirationYear",
+      "type": "string"
+    },
+    "expirationMonth": {
+      "id": "expirationMonth",
+      "type": "string"
+    },
+    "lastTransaction": {
+      "id": "lastTransaction",
+      "type": "string"
+    },
+    "paymentSystem": {
+      "id": "paymentSystem",
+      "type": "string"
+    },
+    "account": {
+      "id": "account",
+      "type": "object",
+      "properties": {
+        "balance": {
+          "id": "balance",
+          "type": "string"
+        },
+        "currency": {
+          "id": "currency",
+          "type": "object",
+          "properties": {
+            "code": {
+              "id": "code",
+              "type": "string"
+            },
+            "description": {
+              "id": "description",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "bank": {
+      "id": "bank",
+      "type": "object",
+      "properties": {
+        "id": {
+          "id": "id",
+          "type": "string"
+        },
+        "name": {
+          "id": "name",
+          "type": "string"
+        },
+        "latinName": {
+          "id": "latinName",
+          "type": "string"
+        },
+        "countryCode": {
+          "id": "countryCode",
+          "type": "string"
+        },
+        "color": {
+          "id": "color",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "color",
+    "name",
+    "direction",
+    "active",
+    "alfabank",
+    "number",
+    "expirationYear",
+    "expirationMonth",
+    "lastTransaction",
+    "paymentSystem",
+    "account",
+    "bank"
+  ]
+}
