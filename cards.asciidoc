@@ -32,11 +32,11 @@
 | Название карты
 
 | active
-| String
+| Boolean
 | Активная карта? (true/false)
 
 | alfabank
-| String
+| Boolean
 | Карта Альфа-Банка? (true/false)
 
 | number
