@@ -8,9 +8,10 @@
 :source-highlighter: highlightjs
 
 [[Overview]]
+== Описание
 Сервис предназначен для работы с объектом Cards.
 
-*Параметры объекта*
+=== Параметры объекта
 |===
 | Параметр | Тип | Описание
 
@@ -66,13 +67,13 @@
 | String
 | Платежная система
 
-3+ | Объект Account
+3+| Объект Account
 
 | Balance
 | Integer
 | Account balance
 
-3+ | Объект Currency
+3+| Объект Currency
 
 | Code
 | String
@@ -82,7 +83,7 @@
 | String
 | Название валюты
 
-3+ | Объект Bank
+3+| Объект Bank
 
 | Id
 | String
@@ -106,7 +107,7 @@
 
 |===
 
-*Пример объекта*
+=== Пример объекта
 ----
 {
   "id": "1",
@@ -159,42 +160,40 @@
 
 |===
 
-[[resources-card]]
-== Карты
-
-[[resources-card-access]]
+[[resources-card-get]]
 === Метод GET
 
-* Получение списка всех карт клиента
+==== Получение списка всех карт клиента
 
-==== Example request
+===== Example request
 
 include::{generated}/cards-get/request.asciidoc[]
 
-==== Example response
+===== Example response
 
 include::{generated}/cards-get/response.asciidoc[]
 
 
-* Получение списка карт в поле карты списания
-
+==== Получение списка карт в поле карты списания
+--
 Дано
   клиент находится на странице перевода
-Когда
+Когда 
   клиент кликает в поле ввода карты списания
 Тогда
   выпадает список карт: карты Альфа-Банка клиента и те, с которых он ранее делал переводы
-       
-==== Example request
+--
+
+===== Example request
 
 include::{generated}/cards-get-sendercards/request.asciidoc[]
 
-==== Example response
+===== Example response
 
 include::{generated}/cards-get-sendercards/response.asciidoc[]
 
 
-* Получение списка карт в поле карты зачисления
+==== Получение списка карт в поле карты зачисления
 
 Дано
   клиент находится на странице перевода
@@ -203,27 +202,29 @@ include::{generated}/cards-get-sendercards/response.asciidoc[]
 Тогда
   выпадает список карт: карты Альфа-Банка клиента и те, на которые он ранее делал переводы
 
-==== Example request
+===== Example request
 
 include::{generated}/cards-get-recipientcards/request.asciidoc[]
 
-==== Example response
+===== Example response
 
 include::{generated}/cards-get-recipientcards/response.asciidoc[]
 
 
-* Получение параметров заданной карты
+==== Получение параметров заданной карты
 
-==== Example request
+===== Example request
 
 include::{generated}/cards-get-currentcard/request.asciidoc[]
 
-==== Example response
+===== Example response
 
 include::{generated}/cards-get-currentcard/response.asciidoc[]
 
+[[resources-card-post]]
+=== Метод POST
 
-* Сохранение новой карты зачисления
+==== Сохранение новой карты зачисления
 
 Дано
   клиент выполнил перевод с новой картой
@@ -232,16 +233,19 @@ include::{generated}/cards-get-currentcard/response.asciidoc[]
 Тогда
   сохраняется новая карта
 
-==== Example request
+===== Example request
 
 include::{generated}/cards-post/request.asciidoc[]
 
-==== Example response
+===== Example response
 
 include::{generated}/cards-post/response.asciidoc[]
 
+[[resources-card-patch]]
+=== Метод PATCH
 
-* Сохранение названия карты
+==== Сохранение названия карты
+
 Дано
   клиент кликает на псевдоссылку с названием карты
 Когда
@@ -249,10 +253,10 @@ include::{generated}/cards-post/response.asciidoc[]
 Тогда
   сохраняется новое название карты
 
-==== Example request
+===== Example request
 
 include::{generated}/cards-patch-name/request.asciidoc[]
 
-==== Example response
+===== Example response
 
 include::{generated}/cards-patch-name/response.asciidoc[]
