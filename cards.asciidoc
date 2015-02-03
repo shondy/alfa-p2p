@@ -11,6 +11,9 @@
 == Описание
 Сервис предназначен для работы с объектом Cards.
 
+=== JSON scheme
+https://github.com/mbezrukov/alfa-p2p/blob/master/cards.jsonscheme[cards.jsonscheme] 
+
 === Параметры объекта Cards
 |===
 | Параметр | Тип | Описание
