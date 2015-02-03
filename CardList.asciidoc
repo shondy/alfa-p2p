@@ -14,126 +14,116 @@
 |===
 | Параметр | Тип | Описание
 
-| humanId
+| id
 | String
-| Human ID
+| ID карты
 
-| cardId
+| direction
 | String
-| Card ID
+| Карта списания или зачисления ('sender' - карты, с которых переводили, 'recipient' - карты, на которые переводили)
 
-| cardColor
+| color
 | String
-| Card color
+| Код цвета карты
 
-| cardName
+| name
 | String
-| Card name
+| Название карты
 
-| isSending
+| verification 
 | String
-| Is sending card? (Y/N)
+| Статус верификации карты (S - 3DS, H - hold, N - not verify)
 
-| isReception
+| active
 | String
-| Is reception card? (Y/N)
+| Активная карта? (true/false)
 
-| cardVerification 
+| alfabank
 | String
-| Card's verification ('S' - 3DS,'H' - hold,'N' - not verify)
+| Карта Альфа-Банка? (true/false)
 
-| isDeletedDebit
+| number
 | String
-| Is deleted debit card? (Y/N)
-
-| isActive
-| String
-| Is active card? (Y/N)
-
-| isAlfabank
-| String
-| Is AlfaBank card and none of the merchants? (Y/N)
-
-| cardNumber
-| String
-| Card number
+| Номер карты
 
 | expirationYear
 | Integer
-| Card expriration year
+| Год окончания срока действия карты
 
 | expirationMonth
 | Integer
-| Card expriration month
-
-| isDeletedCredit
-| String
-| Is deleted credit card? (Y/N)
+| Месяц окончания срока действия карты
 
 | lastTransactionDateForSender
 | Date
-| Last transaction date for sender card
+| Дата последнего перевода с карты
 
 | lastTransactionDateForRecipient
 | Date
-| Last transaction date for recipient card
+| Дата последнего перевода на карту
 
 | paymentSystem
 | String
-| Payment system
+| Платежная система
 
-| accountBalance
+3+ | Account
+
+| Balance
 | Integer
 | Account balance
 
-| accountCurrency
-| String
-| Account currency 
+3+ | Currency
 
-| accountCurrenceName
+| Code
 | String
-| Account currency name
+| Код валюты
 
-| bankId
+| Description
 | String
-| Bank ID
+| Название валюты
 
-| bankNameLatin 
-| String
-| Latin name of bank
+3+ | Bank
 
-| bankNameCyrillic 
+| Id
 | String
-| Cyrillic name of bank
+| ID банка
+
+| latinName
+| String
+| Латинское название банка
+
+| сyrillicName 
+| String
+| Кириллическое название банка
 
 | countryCode
 | String
-| Country code
+| Код страны
 
-| bankColor
+| Color
 | String
-| Bank color
+| Цвет банка
 |===
 
 *Пример объекта*
 ----
 {
-  "humanId": "12345",
-  "cardId": "1",
-  "cardColor": "#000002",
-  "cardName": null,
-  "isSending": "Y",
-  "isReception": "Y",
-  "cardVerification": "S",
-  "isDeletedDebit": "N",
-  "isActive": "Y",
-  "isAlfabank": "N",
-  "cardNumber": "5154 **** 4025",
-  "expirationDate": "07/15",
-  "isDeletedCredit": "N",
+  "id": "1",
+  "color": "#000002",
+  "name": null,
+  "direction": "sender",
+  "verification": "S",
+  "active": true,
+  "alfabank": false,
+  "number": "5154 **** 4025",
+  "expirationYear": "15",
+  "expirationMonth": "07",
   "lastTransactionDateForSender": "2015-12-15",
   "lastTransactionDateForRecipient": "2015-01-15",
   "paymentSystem": "MC",
+  "Accoun"
+  {
+  }
   "accountBalance": "15250.50",
   "accountCurrency": "USD",
   "accountCurrenceName": "Доллар США",
@@ -357,10 +347,9 @@
 
 ----
 {
-  "humanId":""12345,
-  "cardId":"1",
-  "cardColor":"#000002",
-  "cardName":"",
+  "Id": "1",
+  "Color": "#000002",
+  "Name": null,
   "isSending":"Y",
   "isReception":"Y",
   "cardVerification":"S",
