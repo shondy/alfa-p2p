@@ -122,7 +122,7 @@
     },
   "bank": {
     "id": "12345679",
-    "name": "Сбербанк"
+    "name": "Сбербанк",
     "latinName": "Sberbank",
     "countryCode": "12",
     "color": "#000008"
