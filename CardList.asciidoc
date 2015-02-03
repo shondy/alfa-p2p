@@ -8,7 +8,7 @@
 :source-highlighter: highlightjs
 
 [[Overview]]
-Сервис предназначен для работы с объектом Карты.
+Сервис предназначен для работы с объектом Cards.
 
 *Параметры объекта*
 |===
@@ -66,13 +66,13 @@
 | String
 | Платежная система
 
-3+ | Account
+3+ | Объект Account
 
 | Balance
 | Integer
 | Account balance
 
-3+ | Currency
+3+ | Объект Currency
 
 | Code
 | String
@@ -82,7 +82,7 @@
 | String
 | Название валюты
 
-3+ | Bank
+3+ | Объект Bank
 
 | Id
 | String
@@ -103,6 +103,7 @@
 | Color
 | String
 | Цвет банка
+
 |===
 
 *Пример объекта*
@@ -121,17 +122,20 @@
   "lastTransactionDateForSender": "2015-12-15",
   "lastTransactionDateForRecipient": "2015-01-15",
   "paymentSystem": "MC",
-  "Accoun"
-  {
-  }
-  "accountBalance": "15250.50",
-  "accountCurrency": "USD",
-  "accountCurrenceName": "Доллар США",
-  "bankId": "12345679",
-  "bankNameLatin": "Sberbank",
-  "bankNameCyrillic": "Сбербанк",
-  "countryCode": "12",
-  "bankColor": "#000008",
+  "account": {
+    "balance": "15250.50"
+    },
+  "currency": {
+    "code": "USD",
+    "description": "Доллар США"
+    },
+  "bank": {
+    "id": "12345679",
+    "latinName": "Sberbank",
+    "cyrillicName": "Сбербанк",
+    "countryCode": "12",
+    "Color": "#000008",
+    }
 }
 ----
 
@@ -153,33 +157,7 @@
 | `PATCH /cards/123`
 | Редактирование параметров карты в системе
 
-
 |===
-
-[[Errors]]
-== Ошибки
-
-пока хз
- 
-|===
-| Поле | писание
-
-| error
-| ''
-
-| message
-| ''
-
-| path
-| ''
-
-| status
-| ''
-
-| timestamp
-| ''
-|===
-
 
 [[resources-card]]
 == Карты
@@ -187,195 +165,94 @@
 [[resources-card-access]]
 === Метод GET
 
-* Получение списка карт в поле отправителя перевода
+* Получение списка всех карт клиента
 
-==== Пример запроса
+==== Example request
 
-*GET* /cards?cus=AQHFFT&cardVerification=S&isDeleted=N&mode=A&direction=SND
+include::{generated}/cards-get/request.asciidoc[]
 
-==== Примеры ответа
+==== Example response
 
-----
-{
-}
+include::{generated}/cards-get/response.asciidoc[]
 
-[
-  {
-  "humanId": "12345",
-  "cardId": "0",
-  "cardColor": "#000001",
-  "cardName": "Вася Пупкин",
-  "isSending": "Y",
-  "isReception": "N",
-  "cardVerification": "S",
-  "isDeletedDebit": "N",
-  "isActive": "Y",
-  "isAlfabank": "Y",
-  "cardNumber": "5154 **** 4025",
-  "expirationDate": "07/15",
-  "isDeletedCredit": "N",
-  "lastTransactionDateForSender": "2015-12-15",
-  "lastTransactionDateForRecipient": "2015-01-15",
-  "paymentSystem": "MC",
-  "accountBalance": "15250.50",
-  "accountCurrency": "RUR",
-  "accountCurrenceName": "Рубли",
-  "bankId": "12345678",
-  "bankNameLatin": "Alfabank",
-  "bankNameCyrillic": "Альфа-Банк",
-  "countryCode": "12",
-  "bankColor": "#000009",
-  },
-  {
-  "humanId": "12345",
-  "cardId": "1",
-  "cardColor": "#000002",
-  "cardName": "Вася Пупкин 2",
-  "isSending": "Y",
-  "isReception": "Y",
-  "cardVerification": "S",
-  "isDeletedDebit": "N",
-  "isActive": "Y",
-  "isAlfabank": "Y",
-  "cardNumber": "5154 **** 4025",
-  "expirationDate": "07/15",
-  "isDeletedCredit": "N",
-  "lastTransactionDateForSender": "2015-12-15",
-  "lastTransactionDateForRecipient": "2015-01-15",
-  "paymentSystem": "MC",
-  "accountBalance": "15250.50",
-  "accountCurrency": "RUR",
-  "accountCurrenceName": "Рубли",
-  "bankId": "12345678",
-  "bankNameLatin": "Alfabank",
-  "bankNameCyrillic": "Альфа-Банк",
-  "countryCode": "12",
-  "bankColor": "#000009",
-  }
-]
-----
 
-* Получение списка карт в поле получателя перевода
+* Получение списка карт в поле карты списания
 
-==== Пример запроса
+Дано
+  клиент находится на странице перевода
+Когда
+  клиент кликает в поле ввода карты списания
+Тогда
+  выпадает список карт: карты Альфа-Банка клиента и те, с которых он ранее делал переводы
+       
+==== Example request
 
-*GET* /cards?cus=AQHFFT&cardVerification=S&isDeleted=N&mode=A&direction=RCP
+include::{generated}/cards-get-sendercards/request.asciidoc[]
 
-==== Примеры ответа
+==== Example response
 
-----
-{
-  "type":"List",
-  "value":[
-    {
-    "humanId":""12345,
-    "cardId":"1",
-    "cardColor":"#000002",
-    "cardName":"",
-    "isSending":"Y",
-    "isReception":"Y",
-    "cardVerification":"S",
-    "isDeletedDebit":"N",
-    "isActive":"Y",
-    "isAlfabank":"N",
-    "cardNumber":"5154 **** 4025",
-    "expirationDate":"07/15",
-    "isDeletedCredit":"N",
-    "lastTransactionDateForSender":"2015-12-15",
-    "lastTransactionDateForRecipient":"2015-01-15",
-    "paymentSystem":"MC",
-    "accountBalance":"15250.50",
-    "accountCurrency":"USD",
-    "accountCurrenceName":"Доллар США",
-    "bankId":"12345679",
-    "bankNameLatin":"Sberbank",
-    "bankNameCyrillic":"Сбербанк",
-    "countryCode":"12",
-    "bankColor":"#000008",
-    }
-  ]
-}
-----
+include::{generated}/cards-get-sendercards/response.asciidoc[]
+
+
+* Получение списка карт в поле карты зачисления
+
+Дано
+  клиент находится на странице перевода
+Когда
+  клиент кликает в поле ввода карты зачисления
+Тогда
+  выпадает список карт: карты Альфа-Банка клиента и те, на которые он ранее делал переводы
+
+==== Example request
+
+include::{generated}/cards-get-recipientcards/request.asciidoc[]
+
+==== Example response
+
+include::{generated}/cards-get-recipientcards/response.asciidoc[]
+
 
 * Получение параметров заданной карты
 
-==== Пример запроса
+==== Example request
 
-*GET* /cards?id=1
+include::{generated}/cards-get-currentcard/request.asciidoc[]
 
-==== Примеры ответа
+==== Example response
 
-----
-{
-  "humanId":""12345,
-  "cardId":"1",
-  "cardColor":"#000002",
-  "cardName":"",
-  "isSending":"Y",
-  "isReception":"Y",
-  "cardVerification":"S",
-  "isDeletedDebit":"N",
-  "isActive":"Y",
-  "isAlfabank":"N",
-  "cardNumber":"5154 **** 4025",
-  "expirationDate":"07/15",
-  "isDeletedCredit":"N",
-  "lastTransactionDateForSender":"2015-12-15",
-  "lastTransactionDateForRecipient":"2015-01-15",
-  "paymentSystem":"MC",
-  "accountBalance":"15250.50",
-  "accountCurrency":"USD",
-  "accountCurrenceName":"Доллар США",
-  "bankId":"12345679",
-  "bankNameLatin":"Sberbank",
-  "bankNameCyrillic":"Сбербанк",
-  "countryCode":"12",
-  "bankColor":"#000008",
-}
-----
+include::{generated}/cards-get-currentcard/response.asciidoc[]
 
-[[resources-card-create]]
-=== Метод PUT
 
-* Сохранение новой карты после совершения перевода
+* Сохранение новой карты зачисления
 
-==== Пример запроса
+Дано
+  клиент выполнил перевод с новой картой
+Когда
+  операция прошла успешно
+Тогда
+  сохраняется новая карта
 
-*PUT* /cards/?id=1
+==== Example request
 
-==== Примеры ответа
+include::{generated}/cards-post/request.asciidoc[]
 
-----
-{
-  "Id": "1",
-  "Color": "#000002",
-  "Name": null,
-  "isSending":"Y",
-  "isReception":"Y",
-  "cardVerification":"S",
-  "isDeletedDebit":"N",
-  "isActive":"Y",
-  "isAlfabank":"N",
-  "cardNumber":"5154 **** 4025",
-  "expirationDate":"07/15",
-  "isDeletedCredit":"N",
-  "lastTransactionDateForSender":"2015-12-15",
-  "lastTransactionDateForRecipient":"2015-01-15",
-  "paymentSystem":"MC",
-  "accountBalance":"15250.50",
-  "accountCurrency":"USD",
-  "accountCurrenceName":"Доллар США",
-  "bankId":"12345679",
-  "bankNameLatin":"Sberbank",
-  "bankNameCyrillic":"Сбербанк",
-  "countryCode":"12",
-  "bankColor":"#000008",
-}
-----
+==== Example response
 
-[[resources-card-update]]
-=== Метод POST
+include::{generated}/cards-post/response.asciidoc[]
 
-* Сохранение даты последнего перевода
 
 * Сохранение названия карты
+Дано
+  клиент кликает на псевдоссылку с названием карты
+Когда
+  вводит новое название карты
+Тогда
+  сохраняется новое название карты
+
+==== Example request
+
+include::{generated}/cards-patch-name/request.asciidoc[]
+
+==== Example response
+
+include::{generated}/cards-patch-name/response.asciidoc[]
