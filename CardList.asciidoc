@@ -175,14 +175,14 @@ include::{generated}/cards-get/response.asciidoc[]
 
 
 ==== Получение списка карт в поле карты списания
---
+....
 Дано
   клиент находится на странице перевода
 Когда 
   клиент кликает в поле ввода карты списания
 Тогда
   выпадает список карт: карты Альфа-Банка клиента и те, с которых он ранее делал переводы
---
+....
 
 ===== Example request
 
@@ -194,14 +194,14 @@ include::{generated}/cards-get-sendercards/response.asciidoc[]
 
 
 ==== Получение списка карт в поле карты зачисления
-
+....
 Дано
   клиент находится на странице перевода
 Когда
   клиент кликает в поле ввода карты зачисления
 Тогда
   выпадает список карт: карты Альфа-Банка клиента и те, на которые он ранее делал переводы
-
+....
 ===== Example request
 
 include::{generated}/cards-get-recipientcards/request.asciidoc[]
@@ -225,14 +225,14 @@ include::{generated}/cards-get-currentcard/response.asciidoc[]
 === Метод POST
 
 ==== Сохранение новой карты зачисления
-
+....
 Дано
   клиент выполнил перевод с новой картой
 Когда
   операция прошла успешно
 Тогда
   сохраняется новая карта
-
+....
 ===== Example request
 
 include::{generated}/cards-post/request.asciidoc[]
@@ -245,14 +245,14 @@ include::{generated}/cards-post/response.asciidoc[]
 === Метод PATCH
 
 ==== Сохранение названия карты
-
+....
 Дано
   клиент кликает на псевдоссылку с названием карты
 Когда
   вводит новое название карты
 Тогда
   сохраняется новое название карты
-
+....
 ===== Example request
 
 include::{generated}/cards-patch-name/request.asciidoc[]
