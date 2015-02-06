@@ -1,0 +1,289 @@
+= REST Cards
+
+:doctype: book
+:toc:
+:sectanchors:
+:sectlinks:
+:toclevels: 4
+:source-highlighter: highlightjs
+
+[[Overview]]
+== Описание
+Сервис предназначен для работы с объектом Cards.
+
+=== JSON schema
+
+https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema] 
+
+=== Параметры объекта Cards
+|===
+| Параметр | Тип | Описание
+
+| id
+| String
+| ID карты
+
+| direction
+| String
+| Карта списания или зачисления (sender - карты, с которых переводили, recipient - карты, на которые переводили)
+
+| name
+| String
+| Название карты
+
+| active
+| Boolean
+| Активная карта? (true/false)
+
+| alfabank
+| Boolean
+| Карта Альфа-Банка? (true/false)
+
+| number
+| String
+| Номер карты
+
+| expirationYear
+| Integer
+| Год окончания срока действия карты
+
+| expirationMonth
+| Integer
+| Месяц окончания срока действия карты
+
+| lastTransaction
+| Date
+| Дата последнего перевода
+
+| paymentSystem
+| String
+| Платежная система
+
+3+| Объект Account
+
+| balance
+| Integer
+| Текущий баланс
+
+3+| Объект Currency
+
+| code
+| String
+| Код валюты
+
+| description
+| String
+| Название валюты
+
+3+| Объект Bank
+
+| id
+| String
+| ID банка
+
+| name 
+| String
+| Кириллическое название банка
+
+| latinName
+| String
+| Латинское название банка
+
+| countryCode
+| String
+| Код страны
+
+| color
+| String
+| Цвет банка
+
+|===
+
+=== Пример объекта
+----
+{
+  "id": "1",
+  "name": null,
+  "direction": "sender",
+  "active": true,
+  "alfabank": false,
+  "number": "5154 **** 4025",
+  "expirationYear": "15",
+  "expirationMonth": "07",
+  "lastTransaction": "2015-12-15",
+  "paymentSystem": "MC",
+  "account": {
+    "balance": "15250.50",
+    "currency": {
+      "code": "USD",
+      "description": "Доллар США"
+      }
+    },
+  "bank": {
+    "id": "12345679",
+    "name": "Сбербанк",
+    "latinName": "Sberbank",
+    "country": "12",
+    "color": "#000008"
+    }
+}
+----
+
+[[overview-http-verbs]]
+== Список методов
+
+|===
+| Метод | Описание
+
+| `GET /cards`
+| Получение списка карт клиента с параметрами
+
+| `GET /cards/123`
+| Получение параметров заданной карты
+
+| `PATCH /cards/123`
+| Редактирование параметров карты в системе
+
+|===
+
+[[resources-cards-get]]
+=== Метод GET
+
+
+==== Получение списка всех карт клиента
+....
+Клиент получает список всех своих карт
+....
+===== Example request
+
+include::{generated}/cards-get/request.asciidoc[]
+
+===== Example response
+
+include::{generated}/cards-get/response.asciidoc[]
+
+
+==== Получение списка всех активных карт клиента
+....
+Клиент получает список всех своих активных (active = true) карт
+....
+===== Example request
+
+include::{generated}/cards-get-active/request.asciidoc[]
+
+===== Example response
+
+include::{generated}/cards-get-active/response.asciidoc[]
+
+
+==== Получение списка всех активных альфабанковских карт клиента 
+....
+Клиент получает список всех своих активных карт Альфа-Банка
+(active = true и alfabank = true) 
+....
+===== Example request
+
+include::{generated}/cards-get-activealfabank/request.asciidoc[]
+
+===== Example response
+
+include::{generated}/cards-get-activealfabank/response.asciidoc[]
+
+
+==== Получение списка всех активных неальфабанковских карт клиента 
+....
+Клиент получает список всех своих активных карт Альфа-Банка
+(active = true и alfabank = false) 
+....
+===== Example request
+
+include::{generated}/cards-get-activenotalfabank/request.asciidoc[]
+
+===== Example response
+
+include::{generated}/cards-get-activenotalfabank/response.asciidoc[]
+
+
+==== Получение списка карт в поле карты списания
+....
+Дано:
+  клиент находится на странице перевода.
+Когда:
+  клиент кликает в поле ввода карты списания.
+Тогда:
+  выпадает список карт: карты Альфа-Банка клиента (active = true и alfabank = true) и 
+  те, с которых он ранее делал переводы (active = true и alfabank = false и direction = sender).
+....
+===== Example request
+
+include::{generated}/cards-get-sendercards/request.asciidoc[]
+
+===== Example response
+
+include::{generated}/cards-get-sendercards/response.asciidoc[]
+
+
+==== Получение списка карт в поле карты зачисления
+....
+Дано:
+  клиент находится на странице перевода.
+Когда:
+  клиент кликает в поле ввода карты зачисления.
+Тогда:
+  выпадает список карт: карты Альфа-Банка клиента (active = true и alfabank = true) и 
+  те, на которые он ранее делал переводы (active = true и alfabank = false и direction = recipient).
+....
+===== Example request
+
+include::{generated}/cards-get-recipientcards/request.asciidoc[]
+
+===== Example response
+
+include::{generated}/cards-get-recipientcards/response.asciidoc[]
+
+
+==== Получение параметров заданной карты 
+....
+Клиент получает все данные по своей карте (id = 1).
+....
+===== Example request
+
+include::{generated}/cards-get-byid/request.asciidoc[]
+
+===== Example response
+
+include::{generated}/cards-get-byid/response.asciidoc[]
+
+
+[[resources-cards-patch]]
+=== Метод PATCH
+
+==== Редактирование названия карты
+....
+Дано:
+  клиент кликает на псевдоссылку с названием карты.
+Когда:
+  вводит новое название карты (name = Кредитка).
+Тогда:
+  сохраняется новое название карты.
+....
+===== Example request
+
+include::{generated}/cards-patch-name/request.asciidoc[]
+
+===== Example response
+
+include::{generated}/cards-patch-name/response.asciidoc[]
+
+
+==== Смена статуса активности карты
+....
+Карта клиента меняет статус активности после неуспешной операции (active = false)
+....
+===== Example request
+
+include::{generated}/cards-patch-active/request.asciidoc[]
+
+===== Example response
+
+include::{generated}/cards-patch-active/response.asciidoc[]
