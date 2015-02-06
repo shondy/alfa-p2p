@@ -1,4 +1,4 @@
-= REST Cards
+= REST Operations
 
 :doctype: book
 :toc:
@@ -9,7 +9,7 @@
 
 [[Overview]]
 == Описание
-Сервис предназначен для работы с объектом Cards.
+Сервис предназначен для работы с объектом Operations.
 
 === JSON schema
 
