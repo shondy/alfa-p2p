@@ -39,6 +39,32 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 | String
 | Дата совершения транзакции (YYYYMMDDHHMMSSffffff)
 
+| authorizationCode
+| String
+| Код авторизации в SV
+
+| acsurl
+| String
+| URL страницы 3D Secure
+
+3+| senderCard
+
+| card
+| Object
+| Информация по карте списания
+
+| href
+| String
+| Строка запроса метода GET /cards/{cardsID} 
+
+| number
+| String
+| Номер карты
+
+| expirationYear
+| Integer
+| Год окончания срока действия
+
 | expirationMonth
 | Integer
 | Месяц окончания срока действия
@@ -47,31 +73,19 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 | Integer
 | CVV карты
 
-| lastTransactionDate
-| Date
-| Дата последней транзакции (YYYY-MM-DD)
+3+| recipientCard
 
-| paymentSystem
-| String
-| Платежная система
-
-3+| Account
-
-| account
+| card
 | Object
-| Информация по основному счету
+| Информация по карте зачисления
 
 | href
 | String
-| Строка запроса метода GET /accounts
+| Строка запроса метода GET /cards/{cardsID} 
 
-| balance
-| Integer
-| Остаток по основному счету
-
-| scale
-| Integer
-| Количество минорных единиц
+| number
+| String
+| Номер карты
 
 3+| Currency
 
@@ -87,31 +101,27 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 | String
 | Мнемоника валюты основного счета
 
-| description
-| String
-| Название валюты основного счета
+| scale
+| Integer
+|Количество минорных единиц
 
-3+| Bank
+3+| autheration
 
-| bank
+| autheration
 | Object
-| Информация о банке, выпустившему карту
+| Информация о 3ds-авторизации
 
-| href
+| pareq
 | String
-| Строка запроса метода GET /banks/byCardId/{cardId}
+| Запрос на аутентификацию отправителя
 
-| id
+| md 
 | String
-| ID банка
+| Контрольная сумма
 
-| name 
+| pares
 | String
-| Название банка
-
-| color
-| String
-| Цвет банка
+| Подтверждение авторизации карты
 
 |===
 
