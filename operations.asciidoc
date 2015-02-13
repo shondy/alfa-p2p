@@ -1,81 +1,105 @@
-= REST Operations
-
-:doctype: book
-:toc:
-:sectanchors:
-:sectlinks:
-:toclevels: 4
+= REST Transactions
+:toc: left
 :source-highlighter: highlightjs
+
 
 [[Overview]]
 == Описание
-Сервис предназначен для работы с объектом Operations.
+Сервис предназначен для работы с объектом Transaction.
 
 === JSON schema
 
 https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema] 
 
-=== Параметры объекта Cards
+=== Параметры объекта Transaction
 |===
 | Параметр | Тип | Описание
 
 | id
 | String
-| ID карты
+| ID транзакции
 
-| direction
+| status
 | String
-| Карта списания или зачисления (sender - карты, с которых переводили, recipient - карты, на которые переводили)
+| статус транзакции
 
-| name
+| amount
+| Long
+| сумма транзакции
+
+| fee
+| Long
+| сумма комиссии
+
+| fullAmount
+| Long
+| сумма транзакции с комиссией
+
+| date
 | String
-| Название карты
-
-| active
-| Boolean
-| Активная карта? (true/false)
-
-| alfabank
-| Boolean
-| Карта Альфа-Банка? (true/false)
-
-| number
-| String
-| Номер карты
-
-| expirationYear
-| Integer
-| Год окончания срока действия карты
+| Дата совершения транзакции (YYYYMMDDHHMMSSffffff)
 
 | expirationMonth
 | Integer
-| Месяц окончания срока действия карты
+| Месяц окончания срока действия
 
-| lastTransaction
+| cvv
+| Integer
+| CVV карты
+
+| lastTransactionDate
 | Date
-| Дата последнего перевода
+| Дата последней транзакции (YYYY-MM-DD)
 
 | paymentSystem
 | String
 | Платежная система
 
-3+| Объект Account
+3+| Account
+
+| account
+| Object
+| Информация по основному счету
+
+| href
+| String
+| Строка запроса метода GET /accounts
 
 | balance
 | Integer
-| Текущий баланс
+| Остаток по основному счету
 
-3+| Объект Currency
+| scale
+| Integer
+| Количество минорных единиц
+
+3+| Currency
+
+| currency
+| Object
+| Информация по валюте основного счета
+
+| href
+| String
+| Строка запроса метода GET /currencies
 
 | code
 | String
-| Код валюты
+| Мнемоника валюты основного счета
 
 | description
 | String
-| Название валюты
+| Название валюты основного счета
 
-3+| Объект Bank
+3+| Bank
+
+| bank
+| Object
+| Информация о банке, выпустившему карту
+
+| href
+| String
+| Строка запроса метода GET /banks/byCardId/{cardId}
 
 | id
 | String
@@ -83,15 +107,7 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 
 | name 
 | String
-| Кириллическое название банка
-
-| latinName
-| String
-| Латинское название банка
-
-| countryCode
-| String
-| Код страны
+| Название банка
 
 | color
 | String
@@ -100,33 +116,38 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 |===
 
 === Пример объекта
+[source, json]
 ----
-{
-  "id": "1",
-  "name": null,
-  "direction": "sender",
-  "active": true,
-  "alfabank": false,
-  "number": "5154 **** 4025",
-  "expirationYear": "15",
-  "expirationMonth": "07",
-  "lastTransaction": "2015-12-15",
-  "paymentSystem": "MC",
-  "account": {
-    "balance": "15250.50",
-    "currency": {
-      "code": "USD",
-      "description": "Доллар США"
+[
+  {
+    "id": "0000000000000001",
+    "direction": "sender",
+    "name": null,
+    "alfabank": false,
+    "number": "5154 **** 4025",
+    "expirationYear": "15",
+    "expirationMonth": "07",
+    "cvv": null,
+    "lastTransactionDate": "2015-12-15",
+    "paymentSystem": "MC",
+    "account": {
+      "href": "http://.../accounts/...",
+      "balance": "1525050",
+      "scale": "2",
+      "currency": {
+        "href": "http://.../currency/...",
+        "code": "USD",
+        "description": "Доллар США"
       }
     },
-  "bank": {
-    "id": "12345679",
-    "name": "Сбербанк",
-    "latinName": "Sberbank",
-    "country": "12",
-    "color": "#000008"
+    "bank": {
+      "href": "http://.../banks/...",
+      "id": "0000002",
+      "name": "Сбербанк",
+      "color": "#000008"
     }
-}
+  }
+]
 ----
 
 [[overview-http-verbs]]
@@ -135,74 +156,78 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 |===
 | Метод | Описание
 
-| `GET /cards`
-| Получение списка карт клиента с параметрами
+| <<resources-cards-get, GET /cards>>
+| Получение списка карт пользователя
 
-| `GET /cards/123`
-| Получение параметров заданной карты
+| <<resources-cards-byCardId, GET /cards/{cardId}>>
+| Получение информации о карте пользователя по ID
 
-| `PATCH /cards/123`
+| <<resources-cards-patsh, PATCH /cards/{cardId}>>
 | Редактирование параметров карты в системе
 
 |===
 
+
 [[resources-cards-get]]
-=== Метод GET
+=== Метод GET /cards
+
+===== Параметры заголовков запросов
+|===
+| Параметр | Тип | Обязательность | По умолчанию | Описание 
+
+| customerId
+| String
+| Mandatory
+| ---
+| Мнемоника пользователя и мнемоника местоположения
+
+| applicationId
+| String
+| Mandatory
+| ---
+| ID приложения
+
+| mode
+| String
+| Mandatory
+| ---
+| Режим работы ("all" - карты приложения + карты Альфа-Банка)
+
+|===
 
 
-==== Получение списка всех карт клиента
-....
-Клиент получает список всех своих карт
-....
-===== Example request
+===== Параметры строки запроса
+|===
+| Параметр | Тип | Обязательность | По умолчанию | Описание 
 
-include::{generated}/cards-get/request.asciidoc[]
-
-===== Example response
-
-include::{generated}/cards-get/response.asciidoc[]
+| verificationMethod
+| String
+| Optional
+| "3DSecure"
+| Статус верификации карты ("3DSecure", "hold", "notverify") +
 
 
-==== Получение списка всех активных карт клиента
-....
-Клиент получает список всех своих активных (active = true) карт
-....
-===== Example request
-
-include::{generated}/cards-get-active/request.asciidoc[]
-
-===== Example response
-
-include::{generated}/cards-get-active/response.asciidoc[]
+| deleted
+| Boolean
+| Optional
+| false
+| Включать карты, удаленные пользователем? (true/false) +
 
 
-==== Получение списка всех активных альфабанковских карт клиента 
-....
-Клиент получает список всех своих активных карт Альфа-Банка
-(active = true и alfabank = true) 
-....
-===== Example request
-
-include::{generated}/cards-get-activealfabank/request.asciidoc[]
-
-===== Example response
-
-include::{generated}/cards-get-activealfabank/response.asciidoc[]
+| blocked
+| Boolean
+| Optional
+| false
+| Включать заблокированные карты? (true/false) +
 
 
-==== Получение списка всех активных неальфабанковских карт клиента 
-....
-Клиент получает список всех своих активных карт Альфа-Банка
-(active = true и alfabank = false) 
-....
-===== Example request
+| active
+| Boolean
+| Optional
+| false
+| Включать неактивные и просроченные карты? (true/false)
 
-include::{generated}/cards-get-activenotalfabank/request.asciidoc[]
-
-===== Example response
-
-include::{generated}/cards-get-activenotalfabank/response.asciidoc[]
-
+|===
 
 ==== Получение списка карт в поле карты списания
 ....
@@ -216,12 +241,80 @@ include::{generated}/cards-get-activenotalfabank/response.asciidoc[]
 ....
 ===== Example request
 
-include::{generated}/cards-get-sendercards/request.asciidoc[]
+----
+GET /cards/verificationMethod=3DSecure&deleted=false&blocked=false&active=true&direction=sender HTTP/1.1
+Host: money.alfabank.ru 
+Authorization:
+Content-Type: 
+Content-Length: 
+customerId: AHQFFT
+applicationId: ac-p2p
+mode: all
+----
 
 ===== Example response
-
-include::{generated}/cards-get-sendercards/response.asciidoc[]
-
+[source, json]
+----
+HTTP/1.1 200 OK
+[
+  {
+    "id": "0000000000000001",
+    "direction": "sender",
+    "name": null,
+    "alfabank": true,
+    "number": "5154 **** 4025",
+    "expirationYear": "15",
+    "expirationMonth": "07",
+    "cvv": null,
+    "lastTransactionDate": "2015-01-15",
+    "paymentSystem": "MC",
+    "account": {
+      "href": "http://.../accounts/...",
+      "balance": "1525050",
+      "scale": "2",
+      "currency": {
+        "href": "http://.../currency/...",
+        "code": "RUR",
+        "description": "Рубль"
+      }
+    },
+    "bank": {
+      "href": "http://.../banks/...",
+      "id": "0000001",
+      "name": "Альфа-Банк",
+      "color": "#000007"
+    }
+  },
+  {
+    "id": "0000000000000002",
+    "direction": "sender",
+    "name": null,
+    "alfabank": false,
+    "number": "5154 **** 4040",
+    "expirationYear": "15",
+    "expirationMonth": "07",
+    "cvv": null,    
+    "lastTransactionDate": "2015-01-15",
+    "paymentSystem": "MC",
+    "account": {
+      "href": "http://.../accounts/...",
+      "balance": "25000",
+      "scale": "2",
+      "currency": {
+        "href": "http://.../currency/...",
+        "code": "RUR",
+        "description": "Рубль"
+      }
+    },
+    "bank": {
+      "href": "http://.../banks/...",
+      "id": "0000002",
+      "name": "Сбербанк",
+      "color": "#000008"
+    }
+  }
+]
+----
 
 ==== Получение списка карт в поле карты зачисления
 ....
@@ -234,56 +327,228 @@ include::{generated}/cards-get-sendercards/response.asciidoc[]
   те, на которые он ранее делал переводы (active = true и alfabank = false и direction = recipient).
 ....
 ===== Example request
-
-include::{generated}/cards-get-recipientcards/request.asciidoc[]
-
+----
+GET /cards/allverificationMethod=3DSecure&deleted=false&blocked=false&active=true&direction=recipient HTTP/1.1
+Host: money.alfabank.ru 
+Authorization:
+Content-Type: 
+Content-Length: 
+customerId: AHQFFT
+applicationId: ac-p2p
+mode: all
+----
 ===== Example response
+[source, json]
+----
+HTTP/1.1 200 OK
+[
+  {
+    "id": "0000000000000003",
+    "direction": "recipient",
+    "name": null,
+    "alfabank": true,
+    "number": "5154 **** 4052",
+    "expirationYear": "15",
+    "expirationMonth": "07",
+    "lastTransactionDate": "2015-01-15",
+    "cvv": null,
+    "paymentSystem": "MC",
+    "account": {
+      "href": "http://.../accounts/...",
+      "balance": "100050",
+      "scale": "2",
+      "currency": {
+        "href": "http://.../currency/...",
+        "code": "RUR",
+        "description": "Рубль"
+      }
+    },
+    "bank": {
+      "href": "http://.../banks/...",
+      "id": "0000001",
+      "name": "Альфа-Банк",
+      "color": "#000007"
+    }
+  },
+  {
+    "id": "0000000000000004",
+    "direction": "recipient",
+    "name": null,
+    "alfabank": false,
+    "number": "5154 **** 4070",
+    "expirationYear": "15",
+    "expirationMonth": "07",
+    "cvv": null,
+    "lastTransactionDate": "2015-01-15",
+    "paymentSystem": "MC",
+    "account": {
+      "href": "http://.../accounts/...",
+      "balance": "5000050",
+      "scale": "2",
+      "currency": {
+        "href": "http://.../currency/...",
+        "code": "USD",
+        "description": "Доллар США"
+      }
+    },
+    "bank": {
+      "href": "http://.../banks/...",
+      "id": "0000002",
+      "name": "Сбербанк",
+      "color": "#000008"
+    }
+  }
+]
+----
 
-include::{generated}/cards-get-recipientcards/response.asciidoc[]
+[[resources-cards-byCardId]]
+=== Метод GET /cards/{cardId}
+
+
+===== Параметры заголовков запросов
+|===
+| Параметр | Тип | Обязательность | По умолчанию | Описание 
+
+| customerId
+| String
+| Mandatory
+| ---
+| Мнемоника пользователя и мнемоника местоположения
+
+
+| applicationId
+| String
+| Mandatory
+| ---
+| ID приложения
+
+|===
+
+
+===== Параметры строки запроса
+|===
+| Параметр | Тип | Обязательность | По умолчанию | Описание 
+
+| Id
+| String
+| Mandatory
+| ---
+| ID карты
+
+|===
 
 
 ==== Получение параметров заданной карты 
 ....
-Клиент получает все данные по своей карте (id = 1).
+Клиент получает все данные по своей карте (id = 0000000000000003)
 ....
 ===== Example request
-
-include::{generated}/cards-get-byid/request.asciidoc[]
-
+----
+GET /cards/0000000000000003 HTTP/1.1
+Host: money.alfabank.ru 
+Authorization:
+Content-Type: 
+Content-Length: 
+customerId: AHQFFT
+applicationId: ac-p2p
+----
 ===== Example response
-
-include::{generated}/cards-get-byid/response.asciidoc[]
+[source, json]
+----
+HTTP/1.1 200 OK
+{
+  "id": "0000000000000003",
+  "direction": "recipient",
+  "name": null,
+  "alfabank": true,
+  "number": "5154 **** 4052",
+  "expirationYear": "15",
+  "expirationMonth": "07",
+  "cvv": null,
+  "lastTransactionDate": "2015-01-15",
+  "paymentSystem": "MC",
+  "account": {
+    "href": "http://.../accounts/...",
+    "balance": "100050",
+    "scale": "2",
+    "currency": {
+      "href": "http://.../currency/...",
+      "id": "RUR",
+      "description": "Рубль"
+    }
+  },
+  "bank": {
+    "href": "http://.../banks/...",
+    "id": "0000001",
+    "name": "Альфа-Банк",
+    "color": "#000007"
+  }
+}
+----
 
 
 [[resources-cards-patch]]
-=== Метод PATCH
+=== Метод PATCH /cards/{cardId}
+
+===== Параметры заголовков запросов
+|===
+| Параметр | Тип | Обязательность | По умолчанию | Описание 
+
+| customerId
+| String
+| Mandatory
+| ---
+| Мнемоника пользователя и мнемоника местоположения
+
+
+| applicationId
+| String
+| Mandatory
+| ---
+| ID приложения
+
+|===
+
+
+===== Параметры строки запроса
+|===
+| Параметр | Тип | Обязательность | По умолчанию | Описание 
+
+| Id
+| String
+| Mandatory
+| ---
+| ID карты
+
+|===
+
 
 ==== Редактирование названия карты
 ....
 Дано:
   клиент кликает на псевдоссылку с названием карты.
 Когда:
-  вводит новое название карты (name = Кредитка).
+  вводит новое название карты (name = 0000000000000001)
 Тогда:
   сохраняется новое название карты.
 ....
 ===== Example request
+[source, json]
+----
+PATCH /cards/0000000000000001 HTTP/1.1
+Host: money.alfabank.ru 
+Authorization:
+Content-Type: 
+Content-Length: 
+customerId: AHQFFT
+applicationId: ac-p2p
 
-include::{generated}/cards-patch-name/request.asciidoc[]
-
+{
+  "name": "card1"
+}
+----
 ===== Example response
-
-include::{generated}/cards-patch-name/response.asciidoc[]
-
-
-==== Смена статуса активности карты
-....
-Карта клиента меняет статус активности после неуспешной операции (active = false)
-....
-===== Example request
-
-include::{generated}/cards-patch-active/request.asciidoc[]
-
-===== Example response
-
-include::{generated}/cards-patch-active/response.asciidoc[]
+[source, json]
+----
+HTTP/1.1 200 OK
+----
