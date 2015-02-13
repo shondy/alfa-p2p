@@ -47,7 +47,7 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 | String
 | URL страницы 3D Secure
 
-3+| senderCard
+3+| SenderCard
 
 | card
 | Object
@@ -73,7 +73,7 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 | Integer
 | CVV карты
 
-3+| recipientCard
+3+| RecipientCard
 
 | card
 | Object
@@ -103,11 +103,11 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 
 | scale
 | Integer
-|Количество минорных единиц
+| Количество минорных единиц
 
-3+| autheration
+3+| Authorization
 
-| autheration
+| authorization
 | Object
 | Информация о 3ds-авторизации
 
