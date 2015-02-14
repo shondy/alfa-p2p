@@ -139,30 +139,35 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 [
   {
     "id": "0000000000000001",
-    "direction": "sender",
-    "name": null,
-    "alfabank": false,
-    "number": "5154 **** 4025",
-    "expirationYear": "15",
-    "expirationMonth": "07",
-    "cvv": null,
-    "lastTransactionDate": "2015-12-15",
-    "paymentSystem": "MC",
-    "account": {
-      "href": "http://.../accounts/...",
-      "balance": "1525050",
-      "scale": "2",
-      "currency": {
-        "href": "http://.../currency/...",
-        "code": "USD",
-        "description": "Доллар США"
-      }
+    "status": "created",
+    "amount": "100000",
+    "fee": "5000",
+    "fullAmount": "105000",
+    "date": "20150215210555155000",
+    "authorizationCode": "112233",
+    "acsurl": "https://acs.alfabank.ru/acs/PAReq",    
+    "senderCard": {
+      "href": "http://.../cards/1000000000000001",
+      "name": "карточка для переводов",
+      "number": "5154 **** 4025",
+      "expirationYear": "15",
+      "expirationMonth": "07",
+      "svv": "111"
     },
-    "bank": {
-      "href": "http://.../banks/...",
-      "id": "0000002",
-      "name": "Сбербанк",
-      "color": "#000008"
+    "recipientCard": {
+      "href": "http://.../cards/1000000000000002",
+      "name": "карточка брата",
+      "number": "5154 **** 4029"      
+    },
+    "currency": {
+      "href": "http://.../currency/...",
+      "code": "RUR",
+      "scale": "100"
+    },
+    "authorization": {
+      "pareq": "3005008BFD2875B880F6E8AFA738036A",
+      "md": "eJxlUttuozAQ/RXEe/GFS2g0cUVLquaBLsp2+1q5ME1YhUttKOl+/dqEpLvqg61zxuO5nBm4OdYH5wOVrtpm5TKPug42RVtWzW7l/nq6v4rdGwFPe4WY/sRiUCggQ63lDp2qXLm13nnMFZAnW3wXMEcSJpDHgZyp+aKKvWx6AbJ4v908ijCIo4UPZKZQo9qkgnHm+3y6fUrpBAIgp0doZI3iLtmm3F5Ovt6un3+kQCY7FO3Q9OpTRIEJeyYwqIPY932nl4SM4+jJw5vsWtXLg6cGMuLri0b1URVIcp6/9Eo2+g0VAWI/AvmqOx8s0ibRsSpFlibj6axplm7Gx3RzzH4nn9mf9QqI9YBS9ig4ZQGNaOQwvqTxMqBAJjvI2lYomFHghKCzCZKL+V8KRndlxnJu7swAj13boPEwWl8wlKiL7zo53dyBKcE6APlq6e7BDqbojcpXLKRReB3TIPYCvgj9ax7QOPJDGkZ2XJOTTVwZedmCsimzJUBsGDJvApm3xKD/tucvuCzKMA==",
+      "pares": null
     }
   }
 ]
@@ -174,13 +179,13 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 |===
 | Метод | Описание
 
-| <<resources-cards-get, GET /cards>>
-| Получение списка карт пользователя
+| <<resources-p2p-transactions-bytransactionId, GET /p2p/transactions/{transactionId}>>
+| Получение информации о транзакции по ID
 
-| <<resources-cards-byCardId, GET /cards/{cardId}>>
-| Получение информации о карте пользователя по ID
+| <<resources-p2p-transactions-post, POST /p2p/transactions>>
+| Создание транзакции в системе
 
-| <<resources-cards-patsh, PATCH /cards/{cardId}>>
+| <<resources-p2p-transactions-patsh, PATCH /p2p/transactions/{transactionId}>>
 | Редактирование параметров карты в системе
 
 |===
