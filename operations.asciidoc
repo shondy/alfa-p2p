@@ -9,7 +9,7 @@
 
 === JSON schema
 
-https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema] 
+https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON schema] 
 
 === Параметры объекта Transaction
 |===
