@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "array",
+  "items": {
+    "id": "0",
+    "type": "object",
+    "properties": {
+      "id": {
+        "id": "id",
+        "type": "string"
+      },
+      "status": {
+        "id": "status",
+        "type": "string"
+      },
+      "amount": {
+        "id": "amount",
+        "type": "string"
+      },
+      "fee": {
+        "id": "fee",
+        "type": "string"
+      },
+      "fullAmount": {
+        "id": "fullAmount",
+        "type": "string"
+      },
+      "date": {
+        "id": "date",
+        "type": "string"
+      },
+      "authorizationCode": {
+        "id": "authorizationCode",
+        "type": "string"
+      },
+      "acsurl": {
+        "id": "acsurl",
+        "type": "string"
+      },
+      "senderCard": {
+        "id": "senderCard",
+        "type": "object",
+        "properties": {
+          "href": {
+            "id": "href",
+            "type": "string"
+          },
+          "name": {
+            "id": "name",
+            "type": "string"
+          },
+          "number": {
+            "id": "number",
+            "type": "string"
+          },
+          "expirationYear": {
+            "id": "expirationYear",
+            "type": "string"
+          },
+          "expirationMonth": {
+            "id": "expirationMonth",
+            "type": "string"
+          },
+          "svv": {
+            "id": "svv",
+            "type": "string"
+          }
+        }
+      },
+      "recipientCard": {
+        "id": "recipientCard",
+        "type": "object",
+        "properties": {
+          "href": {
+            "id": "href",
+            "type": "string"
+          },
+          "name": {
+            "id": "name",
+            "type": "string"
+          },
+          "number": {
+            "id": "number",
+            "type": "string"
+          }
+        }
+      },
+      "currency": {
+        "id": "currency",
+        "type": "object",
+        "properties": {
+          "href": {
+            "id": "href",
+            "type": "string"
+          },
+          "code": {
+            "id": "code",
+            "type": "string"
+          },
+          "scale": {
+            "id": "scale",
+            "type": "string"
+          }
+        }
+      },
+      "authorization": {
+        "id": "authorization",
+        "type": "object",
+        "properties": {
+          "pareq": {
+            "id": "pareq",
+            "type": "string"
+          },
+          "md": {
+            "id": "md",
+            "type": "string"
+          },
+          "pares": {
+            "id": "pares",
+            "type": "null"
+          }
+        }
+      }
+    },
+    "required": [
+      "id",
+      "status",
+      "amount",
+      "fee",
+      "fullAmount",
+      "date",
+      "authorizationCode",
+      "acsurl",
+      "senderCard",
+      "recipientCard",
+      "currency",
+      "authorization"
+    ]
+  },
+  "required": [
+    "0"
+  ]
+}
