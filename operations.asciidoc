@@ -49,13 +49,17 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 
 3+| SenderCard
 
-| card
+| senderCard
 | Object
 | Информация по карте списания
 
 | href
 | String
 | Строка запроса метода GET /cards/{cardsID} 
+
+| name
+| String
+| Название карты
 
 | number
 | String
@@ -75,13 +79,17 @@ https://github.com/mbezrukov/alfa-p2p/blob/master/cards-json-schema[JSON schema]
 
 3+| RecipientCard
 
-| card
+| recipientCard
 | Object
 | Информация по карте зачисления
 
 | href
 | String
 | Строка запроса метода GET /cards/{cardsID} 
+
+| name
+| String
+| Название карты
 
 | number
 | String
