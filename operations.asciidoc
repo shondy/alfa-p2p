@@ -5,13 +5,13 @@
 
 [[Overview]]
 == Описание
-Сервис предназначен для работы с объектом p2p/transaction.
+Сервис предназначен для работы с объектом P2P/Transactions.
 
 === JSON schema
 
 https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON schema] 
 
-=== Параметры объекта P2P/Transaction
+=== Параметры объекта P2P/Transactions
 |===
 | Параметр | Тип | Описание
 
