@@ -270,7 +270,7 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 | ---
 | сумма транзакции
 
-3+| Currency
+5+| Currency
 
 | currency
 | Object
@@ -284,7 +284,7 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 | ---
 | Мнемоника валюты основного счета
 
-3+| SenderCard
+5+| SenderCard
 
 | senderCard
 | Object
@@ -322,7 +322,7 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 | ---
 | CVV карты
 
-3+| RecipientCard
+5+| RecipientCard
 
 | recipientCard
 | Object
