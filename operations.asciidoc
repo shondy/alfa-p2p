@@ -35,6 +35,24 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 | Long
 | сумма транзакции с комиссией
 
+3+| Currency
+
+| currency
+| Object
+| Информация по валюте основного счета
+
+| href
+| String
+| Строка запроса метода GET /currencies
+
+| code
+| String
+| Мнемоника валюты основного счета
+
+| scale
+| Integer
+| Количество минорных единиц
+
 | date
 | String
 | Дата совершения транзакции (YYYYMMDDHHMMSSffffff)
@@ -95,24 +113,6 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 | String
 | Номер карты
 
-3+| Currency
-
-| currency
-| Object
-| Информация по валюте основного счета
-
-| href
-| String
-| Строка запроса метода GET /currencies
-
-| code
-| String
-| Мнемоника валюты основного счета
-
-| scale
-| Integer
-| Количество минорных единиц
-
 3+| Authorization
 
 | authorization
@@ -143,6 +143,11 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
     "amount": "100000",
     "fee": "5000",
     "fullAmount": "105000",
+    "currency": {
+      "href": "http://.../currency/...",
+      "code": "RUR",
+      "scale": "100"
+    },
     "date": "20150215210555155000",
     "authorizationCode": "112233",
     "acsurl": "https://acs.alfabank.ru/acs/PAReq",    
@@ -158,11 +163,6 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
       "href": "http://.../cards/1000000000000002",
       "name": "карточка брата",
       "number": "5154 **** 4029"      
-    },
-    "currency": {
-      "href": "http://.../currency/...",
-      "code": "RUR",
-      "scale": "100"
     },
     "authorization": {
       "pareq": "3005008BFD2875B880F6E8AFA738036A",
@@ -213,180 +213,19 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 
 |===
 
-==== Получение списка карт в поле карты списания
+==== Получение параметров транзакции на 3-м шаге
 ....
 Дано:
-  клиент находится на странице перевода.
+  клиент выполняет транзакцию по P2P переводу.
 Когда:
-  клиент кликает в поле ввода карты списания.
+  клиент успешно подтвердил транзакцию с помощью 3ds-авторизации.
 Тогда:
-  выпадает список карт: карты Альфа-Банка клиента (active = true и alfabank = true) и 
-  те, с которых он ранее делал переводы (active = true и alfabank = false и direction = sender).
+  клиенту отображается страница третьего шага с параметрами транзакции (channelId="C2" и transactionId = "0000000000000001").
 ....
-===== Example request
 
-----
-GET /cards/verificationMethod=3DSecure&deleted=false&blocked=false&active=true&direction=sender HTTP/1.1
-Host: money.alfabank.ru 
-Authorization:
-Content-Type: 
-Content-Length: 
-customerId: AHQFFT
-applicationId: ac-p2p
-mode: all
-----
 
-===== Example response
-[source, json]
-----
-HTTP/1.1 200 OK
-[
-  {
-    "id": "0000000000000001",
-    "direction": "sender",
-    "name": null,
-    "alfabank": true,
-    "number": "5154 **** 4025",
-    "expirationYear": "15",
-    "expirationMonth": "07",
-    "cvv": null,
-    "lastTransactionDate": "2015-01-15",
-    "paymentSystem": "MC",
-    "account": {
-      "href": "http://.../accounts/...",
-      "balance": "1525050",
-      "scale": "2",
-      "currency": {
-        "href": "http://.../currency/...",
-        "code": "RUR",
-        "description": "Рубль"
-      }
-    },
-    "bank": {
-      "href": "http://.../banks/...",
-      "id": "0000001",
-      "name": "Альфа-Банк",
-      "color": "#000007"
-    }
-  },
-  {
-    "id": "0000000000000002",
-    "direction": "sender",
-    "name": null,
-    "alfabank": false,
-    "number": "5154 **** 4040",
-    "expirationYear": "15",
-    "expirationMonth": "07",
-    "cvv": null,    
-    "lastTransactionDate": "2015-01-15",
-    "paymentSystem": "MC",
-    "account": {
-      "href": "http://.../accounts/...",
-      "balance": "25000",
-      "scale": "2",
-      "currency": {
-        "href": "http://.../currency/...",
-        "code": "RUR",
-        "description": "Рубль"
-      }
-    },
-    "bank": {
-      "href": "http://.../banks/...",
-      "id": "0000002",
-      "name": "Сбербанк",
-      "color": "#000008"
-    }
-  }
-]
-----
-
-==== Получение списка карт в поле карты зачисления
-....
-Дано:
-  клиент находится на странице перевода.
-Когда:
-  клиент кликает в поле ввода карты зачисления.
-Тогда:
-  выпадает список карт: карты Альфа-Банка клиента (active = true и alfabank = true) и 
-  те, на которые он ранее делал переводы (active = true и alfabank = false и direction = recipient).
-....
-===== Example request
-----
-GET /cards/allverificationMethod=3DSecure&deleted=false&blocked=false&active=true&direction=recipient HTTP/1.1
-Host: money.alfabank.ru 
-Authorization:
-Content-Type: 
-Content-Length: 
-customerId: AHQFFT
-applicationId: ac-p2p
-mode: all
-----
-===== Example response
-[source, json]
-----
-HTTP/1.1 200 OK
-[
-  {
-    "id": "0000000000000003",
-    "direction": "recipient",
-    "name": null,
-    "alfabank": true,
-    "number": "5154 **** 4052",
-    "expirationYear": "15",
-    "expirationMonth": "07",
-    "lastTransactionDate": "2015-01-15",
-    "cvv": null,
-    "paymentSystem": "MC",
-    "account": {
-      "href": "http://.../accounts/...",
-      "balance": "100050",
-      "scale": "2",
-      "currency": {
-        "href": "http://.../currency/...",
-        "code": "RUR",
-        "description": "Рубль"
-      }
-    },
-    "bank": {
-      "href": "http://.../banks/...",
-      "id": "0000001",
-      "name": "Альфа-Банк",
-      "color": "#000007"
-    }
-  },
-  {
-    "id": "0000000000000004",
-    "direction": "recipient",
-    "name": null,
-    "alfabank": false,
-    "number": "5154 **** 4070",
-    "expirationYear": "15",
-    "expirationMonth": "07",
-    "cvv": null,
-    "lastTransactionDate": "2015-01-15",
-    "paymentSystem": "MC",
-    "account": {
-      "href": "http://.../accounts/...",
-      "balance": "5000050",
-      "scale": "2",
-      "currency": {
-        "href": "http://.../currency/...",
-        "code": "USD",
-        "description": "Доллар США"
-      }
-    },
-    "bank": {
-      "href": "http://.../banks/...",
-      "id": "0000002",
-      "name": "Сбербанк",
-      "color": "#000008"
-    }
-  }
-]
-----
-
-[[resources-cards-byCardId]]
-=== Метод GET /cards/{cardId}
+[[resources--p2p-transactions-post]]
+=== Метод GET /p2p/transactions
 
 
 ===== Параметры заголовков запросов
@@ -409,18 +248,101 @@ HTTP/1.1 200 OK
 |===
 
 
-===== Параметры строки запроса
+===== Параметры JSON-запроса
 |===
 | Параметр | Тип | Обязательность | По умолчанию | Описание 
 
-| Id
+| channelId
 | String
 | Mandatory
 | ---
 | ID карты
 
-|===
+| clientIP
+| String
+| Mandatory
+| ---
+| IP-адрес отправителя
 
+| amount
+| Long
+| Mandatory
+| ---
+| сумма транзакции
+
+3+| Currency
+
+| currency
+| Object
+| Mandatory
+| ---
+| Информация по валюте основного счета
+
+| code
+| String
+| Mandatory
+| ---
+| Мнемоника валюты основного счета
+
+3+| SenderCard
+
+| senderCard
+| Object
+| Mandatory
+| ---
+| Информация по карте списания
+
+| id
+| String
+| Should
+| ---
+| id карты
+
+| number
+| String
+| Should
+| ---
+| Номер карты
+
+| expirationYear
+| Integer
+| Mandatory
+| ---
+| Год окончания срока действия
+
+| expirationMonth
+| Integer
+| Mandatory
+| ---
+| Месяц окончания срока действия
+
+| cvv
+| Integer
+| Mandatory
+| ---
+| CVV карты
+
+3+| RecipientCard
+
+| recipientCard
+| Object
+| Mandatory
+| ---
+| Информация по карте зачисления
+
+| id
+| String
+| Should
+| ---
+| id карты
+
+| number
+| String
+| Should
+| ---
+| Номер карты
+
+|===
 
 ==== Получение параметров заданной карты 
 ....
