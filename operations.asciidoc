@@ -220,11 +220,11 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 Когда:
   клиент успешно подтвердил транзакцию с помощью 3ds-авторизации.
 Тогда:
-  клиенту отображается страница третьего шага с параметрами транзакции (channelId="C2" и transactionId = "0000000000000001").
+  клиенту отображается страница третьего шага с параметрами транзакции (channelId=C2 и transactionId=0000000000000001).
 ....
 
 
-[[resources--p2p-transactions-post]]
+[[resources-p2p-transactions-post]]
 === Метод GET /p2p/transactions
 
 
@@ -344,117 +344,60 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 
 |===
 
-==== Получение параметров заданной карты 
+==== Создание транзакции 
 ....
-Клиент получает все данные по своей карте (id = 0000000000000003)
+Дано:
+  клиент заполняет параметры транзакцию по P2P переводу.
+Когда:
+  клиент инициирует выполнение транзакции.
+Тогда:
+  создается транзакция.
 ....
-===== Example request
-----
-GET /cards/0000000000000003 HTTP/1.1
-Host: money.alfabank.ru 
-Authorization:
-Content-Type: 
-Content-Length: 
-customerId: AHQFFT
-applicationId: ac-p2p
-----
-===== Example response
-[source, json]
-----
-HTTP/1.1 200 OK
-{
-  "id": "0000000000000003",
-  "direction": "recipient",
-  "name": null,
-  "alfabank": true,
-  "number": "5154 **** 4052",
-  "expirationYear": "15",
-  "expirationMonth": "07",
-  "cvv": null,
-  "lastTransactionDate": "2015-01-15",
-  "paymentSystem": "MC",
-  "account": {
-    "href": "http://.../accounts/...",
-    "balance": "100050",
-    "scale": "2",
-    "currency": {
-      "href": "http://.../currency/...",
-      "id": "RUR",
-      "description": "Рубль"
-    }
-  },
-  "bank": {
-    "href": "http://.../banks/...",
-    "id": "0000001",
-    "name": "Альфа-Банк",
-    "color": "#000007"
-  }
-}
-----
 
 
-[[resources-cards-patch]]
-=== Метод PATCH /cards/{cardId}
-
-===== Параметры заголовков запросов
-|===
-| Параметр | Тип | Обязательность | По умолчанию | Описание 
-
-| customerId
-| String
-| Mandatory
-| ---
-| Мнемоника пользователя и мнемоника местоположения
-
-
-| applicationId
-| String
-| Mandatory
-| ---
-| ID приложения
-
-|===
-
+[[resources-p2p-transactions-patsh]]
+=== Метод PATCH /p2p/transactions/{transactionId}
 
 ===== Параметры строки запроса
 |===
 | Параметр | Тип | Обязательность | По умолчанию | Описание 
 
-| Id
+| transactionId
+| String
+| Mandatory
+| ---
+| Рефернс транзакции
+
+|===
+
+
+===== Параметры JSON-запроса
+|===
+| Параметр | Тип | Обязательность | По умолчанию | Описание 
+
+| Status
 | String
 | Mandatory
 | ---
 | ID карты
 
+5+| Authorization
+
+| pares
+| String
+| Mandatory
+| ---
+| Подтверждение авторизации карты
+
 |===
 
-
-==== Редактирование названия карты
+==== Редактирование статуса транзакции
 ....
 Дано:
-  клиент кликает на псевдоссылку с названием карты.
+  клиент выполняет транзакцию по P2P переводу.
 Когда:
-  вводит новое название карты (name = 0000000000000001)
+  клиент успешно подтвердил транзакцию с помощью 3ds-авторизации (name = 0000000000000001).
 Тогда:
-  сохраняется новое название карты.
+  инициируется выполнение транзакции в системе.
 ....
-===== Example request
-[source, json]
-----
-PATCH /cards/0000000000000001 HTTP/1.1
-Host: money.alfabank.ru 
-Authorization:
-Content-Type: 
-Content-Length: 
-customerId: AHQFFT
-applicationId: ac-p2p
 
-{
-  "name": "card1"
-}
-----
-===== Example response
-[source, json]
-----
-HTTP/1.1 200 OK
-----
