@@ -191,64 +191,25 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 |===
 
 
-[[resources-cards-get]]
-=== Метод GET /cards
-
-===== Параметры заголовков запросов
-|===
-| Параметр | Тип | Обязательность | По умолчанию | Описание 
-
-| customerId
-| String
-| Mandatory
-| ---
-| Мнемоника пользователя и мнемоника местоположения
-
-| applicationId
-| String
-| Mandatory
-| ---
-| ID приложения
-
-| mode
-| String
-| Mandatory
-| ---
-| Режим работы ("all" - карты приложения + карты Альфа-Банка)
-
-|===
-
+[[resources-p2p-transactions-bytransactionId]]
+=== Метод GET /p2p/transactions/{transactionId}
 
 ===== Параметры строки запроса
 |===
 | Параметр | Тип | Обязательность | По умолчанию | Описание 
 
-| verificationMethod
+| transactionId
 | String
-| Optional
-| "3DSecure"
-| Статус верификации карты ("3DSecure", "hold", "notverify") +
+| Mandatory
+| ---
+| ID транзакции +
 
 
-| deleted
-| Boolean
-| Optional
-| false
-| Включать карты, удаленные пользователем? (true/false) +
-
-
-| blocked
-| Boolean
-| Optional
-| false
-| Включать заблокированные карты? (true/false) +
-
-
-| active
-| Boolean
-| Optional
-| false
-| Включать неактивные и просроченные карты? (true/false)
+| channelId
+| String
+| Mandatory
+| ---
+| ID канала 
 
 |===
 
