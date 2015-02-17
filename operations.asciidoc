@@ -360,9 +360,19 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
   создается транзакция.
 ....
 
-Тесты::
-    . В методе POST /p2p/transactions вызывается WSClickPaymentCreate#Add
-      * Desktop
+Тесты для метода POST /p2p/transactions::
+    . Вызов WSClickPaymentCreate#Add. Mapping входных параметров:
+      |===
+| Параметры WSClickPaymentCreate| Параметры POST /p2p/transactions 
+
+| customerId
+| String
+
+| applicationId
+| String
+
+|===
+
     . Ubuntu
 
 [[resources-p2p-transactions-patsh]]
