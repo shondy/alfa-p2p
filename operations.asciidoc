@@ -31,10 +31,6 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 | Long
 | сумма комиссии
 
-| fullAmount
-| Long
-| сумма транзакции с комиссией
-
 3+| Currency
 
 | currency
@@ -142,7 +138,6 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
     "status": "created",
     "amount": "100000",
     "fee": "5000",
-    "fullAmount": "105000",
     "currency": {
       "href": "http://.../currency/...",
       "code": "RUR",
@@ -237,7 +232,7 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 
 
 [[resources-p2p-transactions-post]]
-=== Метод GET /p2p/transactions
+=== Метод POST /p2p/transactions
 
 
 ===== Параметры заголовков запросов
