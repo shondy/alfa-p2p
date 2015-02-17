@@ -363,13 +363,13 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 Тесты для метода POST /p2p/transactions::
     . Вызов WSClickPaymentCreate#Add. Mapping входных параметров:
 
-      ,===
-      Параметры WSClickPaymentCreate, Параметры POST /p2p/transactions 
-      
-      customerId, String
-      applicationId, String
-      
-      ,===
+,===
+Параметры WSClickPaymentCreate, Параметры POST /p2p/transactions 
+  
+customerId, String
+applicationId, String
+
+,===
 
     . Ubuntu
 
