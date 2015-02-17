@@ -361,7 +361,7 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
 ....
 
 Тесты::
-    . Fedora
+    . В методе POST /p2p/transactions вызывается WSClickPaymentCreate#Add
       * Desktop
     . Ubuntu
 
