@@ -360,6 +360,10 @@ https://github.com/shondy/alfa-p2p/blob/master/transactions-json-schema[JSON sch
   создается транзакция.
 ....
 
+Тесты::
+    . Fedora
+      * Desktop
+    . Ubuntu
 
 [[resources-p2p-transactions-patsh]]
 === Метод PATCH /p2p/transactions/{transactionId}
